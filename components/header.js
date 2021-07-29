@@ -30,6 +30,15 @@ const HeaderStyled = styled.header`
     padding-right: 1rem;
     border-right: 1px solid #b8b4b4;
     cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+  }
+  .location:hover {
+    border: 2px solid royalblue;
+  }
+  .location:active {
+    transform: scale(0.95);
   }
   .shopping-cart {
     color: white;
@@ -70,7 +79,7 @@ function Header({ modalHidden }) {
           <div className="header-user-location">
             <i className="icon-mapLocation"></i>
             <p className="location" onClick={handleClick} ref={currentLocation}>
-              México City Marriott Reforma Hotel...
+              Selecciona tu ubicación
             </p>
             <button className="shopping-cart" ref={shoppingCart}>
               <i className="icon-shoppingCart"></i>0
