@@ -1,14 +1,16 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef, useState, useContext } from "react";
 import styled from "styled-components";
-import Head from "next/head";
 import location from "../services/geolocation";
+import Place from "./place";
+import { Context } from "../pages/index";
+
 const ModalCurrentLocationStyled = styled.div`
   position: fixed;
   block-size: 100vh;
   inline-size: 100vw;
   background: rgba(0, 0, 0, 0.5);
   z-index: 5;
-  .modal-location {
+  .modal {
     position: absolute;
     right: calc(50% - (700px / 2));
     top: 9.37rem;
@@ -69,47 +71,72 @@ const ModalCurrentLocationStyled = styled.div`
       border: 1px solid #b8b4b4;
     }
     input:focus {
-      border: 1px solid red;
+      border: 1px solid royalblue;
     }
   }
 `;
 
 function ModalCurrentLocation({ modalHidden }) {
+  const context = useContext(Context);
   const input = useRef(null);
-  useEffect(() => {});
-  function handleClickForm(event) {
-    event.preventDefault();
-    const currentLocation = location(input.current.value);
-    console.log(currentLocation);
-    console.log(input.current.value);
-    console.log("hola");
+  const button = useRef(null);
+  const modal = useRef(null);
+  const [places, setPlaces] = useState({});
+
+  async function handleClickForm() {
+    const currentLocation = await location(input.current.value);
+    setPlaces(currentLocation.predictions);
   }
+
   function handleClick() {
+    modalHidden(false);
+  }
+  function handleToUpdatePosition() {
+    console.log(context);
+    context.value.location.textContent = input.current.value;
     modalHidden(false);
   }
 
   return (
-    <ModalCurrentLocationStyled>
-      <form
-        className="modal-location animate__animated animate__fadeInDown"
-        onSubmit={handleClickForm}
-      >
+    <ModalCurrentLocationStyled ref={modal}>
+      <div className="modal animate__animated animate__fadeInDown">
         <button className="close" onClick={handleClick}>
           <i className="icon-close"></i>
         </button>
-        <h3>¿Dónde quieres recibir tu pedido?</h3>
-        <p>
-          Para poder ofrecerte productos dentro de tu área, necesitamos tu
-          dirección
-        </p>
-        <div className="search-current-location">
-          <i className="icon-mapLocation" aria-hidden="true"></i>
-          <input type="text" placeholder="Ingresa tu dirección" ref={input} />
+        <div className="modal-location ">
+          <h3>¿Dónde quieres recibir tu pedido?</h3>
+          <p>
+            Para poder ofrecerte productos dentro de tu área, necesitamos tu
+            dirección
+          </p>
+          <div className="search-current-location">
+            <i className="icon-mapLocation" aria-hidden="true"></i>
+            <input
+              type="text"
+              placeholder="Ingresa tu dirección"
+              ref={input}
+              onChange={handleClickForm}
+            />
+          </div>
+          <button
+            className="button-submit"
+            type="submit"
+            ref={button}
+            onClick={handleToUpdatePosition}
+          >
+            Buscar
+          </button>
         </div>
-        <button className="button-submit" type="submit">
-          Buscar
-        </button>
-      </form>
+        {places.length > 2 ? (
+          <Place
+            places={places}
+            input={input.current}
+            button={button.current}
+          />
+        ) : (
+          ""
+        )}
+      </div>
     </ModalCurrentLocationStyled>
   );
 }

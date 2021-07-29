@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import styled from "styled-components";
 import Wrappeer from "./wrapper";
+import { Context } from "../pages/index";
 
 const HeaderStyled = styled.header`
   background: var(--white);
@@ -48,6 +49,16 @@ const HeaderStyled = styled.header`
 `;
 
 function Header({ modalHidden }) {
+  const currentLocation = useRef(null);
+  const shoppingCart = useRef(null);
+  const context = useContext(Context);
+  console.log(context);
+  useEffect(() => {
+    context.setContext({
+      location: currentLocation.current,
+      cart: shoppingCart.current,
+    });
+  }, []);
   function handleClick() {
     modalHidden(true);
   }
@@ -58,10 +69,10 @@ function Header({ modalHidden }) {
           <h1 className="header-title">Tiendita</h1>
           <div className="header-user-location">
             <i className="icon-mapLocation"></i>
-            <p className="location" onClick={handleClick}>
+            <p className="location" onClick={handleClick} ref={currentLocation}>
               México City Marriott Reforma Hotel...
             </p>
-            <button className="shopping-cart">
+            <button className="shopping-cart" ref={shoppingCart}>
               <i className="icon-shoppingCart"></i>0
             </button>
           </div>
