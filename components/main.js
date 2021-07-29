@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Wrapper from "./wrapper";
 import Hero from "./hero";
@@ -14,14 +14,14 @@ const MainStyled = styled.main`
   }
 `;
 
-function Main() {
+function Main({ showModal }) {
   return (
     <MainStyled>
       <Wrapper>
         <div className="main-content">
           <Hero />
-          <Offer />
-          <PopularProducts />
+          <Offer showModal={showModal} />
+          <PopularProducts showModal={showModal} />
         </div>
       </Wrapper>
     </MainStyled>

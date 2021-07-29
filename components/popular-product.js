@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-
+import { Context } from "../pages/index";
 const PopularProductStyled = styled.div`
   width: 12.5rem;
   block-size: 26.62rem;
@@ -46,14 +46,25 @@ const PopularProductStyled = styled.div`
   }
 `;
 
-function PopularProduct({ product }) {
+function PopularProduct({ product, showModal, setDataProduct }) {
+  const context = useContext(Context);
+
+  function handleClick() {
+    context.value.modalData = product;
+    showModal(true);
+    if (setDataProduct) {
+      setDataProduct(product);
+    }
+  }
   return (
     <PopularProductStyled id={product.name}>
       <img src={`./images/${product.name}.jpg`} alt={product.name} />
       <p className="price">${product.precioActual}</p>
       <p className="description">{product.description}</p>
       <p className="price-gram">{product.gramos}</p>
-      <button className="button-add">Agregar</button>
+      <button className="button-add" onClick={handleClick}>
+        Agregar
+      </button>
     </PopularProductStyled>
   );
 }

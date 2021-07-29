@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-
+import { Context } from "../pages/index";
 const ProductStyled = styled.div`
   inline-size: 12.5rem;
   block-size: 26.62rem;
@@ -65,7 +65,16 @@ const ProductStyled = styled.div`
   }
 `;
 
-function Product({ product }) {
+function Product({ product, showModal, setDataProduct }) {
+  const context = useContext(Context);
+
+  function handleClick(product) {
+    context.value.modalData = product;
+    showModal(true);
+    if (setDataProduct) {
+      setDataProduct(product);
+    }
+  }
   return (
     <ProductStyled id={product.name}>
       <button className="button-descuento">
@@ -78,7 +87,9 @@ function Product({ product }) {
         <p className="previous-price">${product.precioAntes}/kg</p>
       </div>
       <h3>{product.description}</h3>
-      <button className="button-add">Agregar</button>
+      <button className="button-add" onClick={() => handleClick(product)}>
+        Agregar
+      </button>
     </ProductStyled>
   );
 }

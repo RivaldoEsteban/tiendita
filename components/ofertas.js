@@ -18,13 +18,19 @@ const OfertasStyled = styled.section`
   }
 `;
 
-function Offers() {
+function Offers({ showModal }) {
   return (
     <OfertasStyled aria-label="ofertas">
       <h3 className="title-section">Ofertas</h3>
       <div className="product-list">
         {ofertas.map((product) => {
-          return <Product product={product} key={product.name} />;
+          return (
+            <Product
+              product={product}
+              key={product.name}
+              showModal={showModal}
+            />
+          );
         })}
       </div>
     </OfertasStyled>

@@ -1,0 +1,20 @@
+@media (max-width: 900px) {
+  h3,
+  h4 {
+    margin: 0 !important;
+    margin-bottom: 1rem !important;
+  }
+  .buy-product-content {
+    inline-size: 50rem !important;
+    left: calc(50% - 25rem);
+  }
+  .description {
+    font-size: 1.2rem !important;
+  }
+  .price {
+    font-size: 1.4rem !important;
+  }
+  select {
+    font-size: 0.8rem !important;
+  }
+}

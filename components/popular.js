@@ -20,13 +20,19 @@ const PopularStyled = styled.section`
   }
 `;
 
-function PopularProducts() {
+function PopularProducts({ showModal }) {
   return (
     <PopularStyled aria-label="popular products">
       <h3 className="title-section">Los más populares</h3>
       <div className="product-list">
         {morePopular.map((product) => {
-          return <PopularProduct product={product} key={product.name} />;
+          return (
+            <PopularProduct
+              product={product}
+              key={product.name}
+              showModal={showModal}
+            />
+          );
         })}
       </div>
     </PopularStyled>

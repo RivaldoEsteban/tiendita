@@ -66,6 +66,7 @@ function Header({ modalHidden }) {
     context.setContext({
       location: currentLocation.current,
       cart: shoppingCart.current,
+      modalData: "",
     });
   }, []);
   function handleClick() {
@@ -81,8 +82,9 @@ function Header({ modalHidden }) {
             <p className="location" onClick={handleClick} ref={currentLocation}>
               Selecciona tu ubicación
             </p>
-            <button className="shopping-cart" ref={shoppingCart}>
-              <i className="icon-shoppingCart"></i>0
+            <button className="shopping-cart">
+              <i className="icon-shoppingCart"></i>
+              <span ref={shoppingCart}>0</span>
             </button>
           </div>
         </div>
