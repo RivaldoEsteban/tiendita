@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import Wrappeer from "./wrapper";
 import { Context } from "../pages/index";
@@ -33,6 +33,7 @@ const HeaderStyled = styled.header`
     border: 2px solid transparent;
     border-radius: 0.5rem;
     padding: 0.5rem;
+    margin: 0;
   }
   .location:hover {
     border: 2px solid royalblue;
@@ -57,20 +58,18 @@ const HeaderStyled = styled.header`
   }
 `;
 
-function Header({ modalHidden }) {
-  const currentLocation = useRef(null);
-  const shoppingCart = useRef(null);
+function Header({ modalBuyProduct, modalShoppingCart }) {
   const context = useContext(Context);
   console.log(context);
-  useEffect(() => {
-    context.setContext({
-      location: currentLocation.current,
-      cart: shoppingCart.current,
-      modalData: "",
-    });
-  }, []);
+
+  const location = context.refLocation.value;
+  const currentProducts = context.refCurrentProducts.value;
+
   function handleClick() {
-    modalHidden(true);
+    modalBuyProduct(true);
+  }
+  function handleShowModal() {
+    modalShoppingCart(true);
   }
   return (
     <HeaderStyled>
@@ -79,12 +78,12 @@ function Header({ modalHidden }) {
           <h1 className="header-title">Tiendita</h1>
           <div className="header-user-location">
             <i className="icon-mapLocation"></i>
-            <p className="location" onClick={handleClick} ref={currentLocation}>
-              Selecciona tu ubicación
+            <p className="location" onClick={handleClick}>
+              {location}
             </p>
-            <button className="shopping-cart">
+            <button className="shopping-cart" onClick={handleShowModal}>
               <i className="icon-shoppingCart"></i>
-              <span ref={shoppingCart}>0</span>
+              <span>{currentProducts}</span>
             </button>
           </div>
         </div>

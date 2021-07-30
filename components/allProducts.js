@@ -12,7 +12,7 @@ const AllproductsStyled = styled.div`
   }
 `;
 
-function Allproducts({ showModal, setDataProduct }) {
+function Allproducts({ showModal }) {
   return (
     <AllproductsStyled>
       <div className="all-products">
@@ -20,9 +20,8 @@ function Allproducts({ showModal, setDataProduct }) {
           return (
             <Product
               product={product}
-              showModal={showModal}
               key={product.name}
-              setDataProduct={setDataProduct}
+              showModal={showModal}
             />
           );
         })}
@@ -31,9 +30,8 @@ function Allproducts({ showModal, setDataProduct }) {
           return (
             <PopularProduct
               product={product}
-              showModal={showModal}
               key={product.name}
-              setDataProduct={setDataProduct}
+              showModal={showModal}
             />
           );
         })}

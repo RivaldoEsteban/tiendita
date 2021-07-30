@@ -67,13 +67,10 @@ const ProductStyled = styled.div`
 
 function Product({ product, showModal, setDataProduct }) {
   const context = useContext(Context);
-
+  // console.log(context);
   function handleClick(product) {
-    context.value.modalData = product;
+    context.setContext(product);
     showModal(true);
-    if (setDataProduct) {
-      setDataProduct(product);
-    }
   }
   return (
     <ProductStyled id={product.name}>

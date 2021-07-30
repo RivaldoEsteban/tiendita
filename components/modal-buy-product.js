@@ -3,13 +3,14 @@ import React, { useContext, useState, useRef } from "react";
 import styled from "styled-components";
 import { Context } from "../pages/index";
 import Allproducts from "./allProducts";
+import AddedProduct from "./added-product";
+
 const ModalBuyProductStyled = styled.div`
   position: fixed;
   block-size: 100vh;
   inline-size: 100vw;
   background: rgba(0, 0, 0, 0.5);
   z-index: 5;
-
   .buy-product-content {
     overflow-y: auto;
     inline-size: 62.5rem;
@@ -109,27 +110,24 @@ const ModalBuyProductStyled = styled.div`
 function ModalBuyProduct({ showModal }) {
   const context = useContext(Context);
   const select = useRef(null);
-  const [dataProduct, setDataProduct] = useState({});
-  const product = context.value.modalData.product
-    ? context.value.modalData.product
-    : context.value.modalData;
+  const [purchaseCompleted, setPurchaseCompleted] = useState(false);
+  const product = context.context;
+  const addToCart = context.shoppingCart.product.value;
 
   function handleHideModal() {
     showModal(false);
   }
   function handleDataProduct() {
-    console.log(context);
-    context.value.modalData = [
-      {
-        ...context.value.modalData,
-        madurez: select.current.value,
-        product: product,
-      },
-    ];
-    context.value.cart.textContent = Number(context.value.cart.textContent) + 1;
+    if (!purchaseCompleted) {
+      setPurchaseCompleted(true);
+      const currentProducts = context.refCurrentProducts.value;
+      context.refCurrentProducts.setShoppingCart(Number(currentProducts) + 1);
+      context.shoppingCart.product.setDataProduct([...addToCart, product]);
+    }
   }
   return (
     <ModalBuyProductStyled>
+      {purchaseCompleted ? <AddedProduct hidden={setPurchaseCompleted} /> : ""}
       <div className="buy-product-content  animate__animated animate__fadeInDown">
         <div className="close">
           <button onClick={handleHideModal}>
@@ -138,12 +136,12 @@ function ModalBuyProduct({ showModal }) {
         </div>
         <div className="product-selected">
           <div className="product-image">
-            <img src={`./images/${product.name}.jpg`} alt={product.name} />
+            <img src={`./images/${product?.name}.jpg`} alt={product?.name} />
           </div>
           <div className="product-description">
             <div>
-              <h3 className="description">{product.description}</h3>
-              <p className="price">· ${product.precioActual} /Kg</p>
+              <h3 className="description">{product?.description}</h3>
+              <p className="price">· ${product?.precioActual} /Kg</p>
               <p className="iva">Precios con IVA incluido</p>
               <p className="peso">
                 Peso aproximado por pieza, puede variar de acuerdo al peso real.
@@ -160,7 +158,7 @@ function ModalBuyProduct({ showModal }) {
             </div>
           </div>
         </div>
-        <Allproducts showModal={showModal} setDataProduct={setDataProduct} />
+        <Allproducts showModal={showModal} />
       </div>
     </ModalBuyProductStyled>
   );

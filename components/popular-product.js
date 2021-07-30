@@ -48,13 +48,9 @@ const PopularProductStyled = styled.div`
 
 function PopularProduct({ product, showModal, setDataProduct }) {
   const context = useContext(Context);
-
   function handleClick() {
-    context.value.modalData = product;
+    context.setContext(product);
     showModal(true);
-    if (setDataProduct) {
-      setDataProduct(product);
-    }
   }
   return (
     <PopularProductStyled id={product.name}>

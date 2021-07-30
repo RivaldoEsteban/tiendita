@@ -22,7 +22,7 @@ const ModalCurrentLocationStyled = styled.div`
     border-radius: 1rem;
     z-index: 10;
   }
-  .close {
+  .close-button {
     position: absolute;
     right: 40px;
     padding: 0.5rem 0.5rem 0.4rem 0.5rem;
@@ -31,9 +31,6 @@ const ModalCurrentLocationStyled = styled.div`
     color: white;
     cursor: pointer;
     border: none;
-    text-align: end;
-    display: block;
-    border: 1px solid;
   }
   h3 {
     margin-top: 3rem;
@@ -92,18 +89,17 @@ function ModalCurrentLocation({ modalHidden }) {
     modalHidden(false);
   }
   function handleToUpdatePosition() {
-    console.log(context);
-    context.value.location.textContent = input.current.value;
+    context.refLocation.setLocation(input.current.value);
     modalHidden(false);
   }
 
   return (
     <ModalCurrentLocationStyled ref={modal}>
       <div className="modal animate__animated animate__fadeInDown">
-        <button className="close" onClick={handleClick}>
+        <button className="close-button" onClick={handleClick}>
           <i className="icon-close"></i>
         </button>
-        <div className="modal-location ">
+        <div className="modal-location">
           <h3>¿Dónde quieres recibir tu pedido?</h3>
           <p>
             Para poder ofrecerte productos dentro de tu área, necesitamos tu

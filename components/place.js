@@ -25,7 +25,7 @@ const PlaceStyled = styled.div`
     }
   }
   .button {
-    right: 1.5rem;
+    right: 1rem;
     top: 0.5rem;
     position: absolute;
     padding: 0.5rem 0.5rem 0.4rem 0.5rem;
