@@ -112,6 +112,7 @@ function ModalBuyProduct({ showModal }) {
   const select = useRef(null);
   const [purchaseCompleted, setPurchaseCompleted] = useState(false);
   const product = context.context;
+  const copy = [product].slice();
   const addToCart = context.shoppingCart.product.value;
 
   function handleHideModal() {
@@ -122,7 +123,7 @@ function ModalBuyProduct({ showModal }) {
       setPurchaseCompleted(true);
       const currentProducts = context.refCurrentProducts.value;
       context.refCurrentProducts.setShoppingCart(Number(currentProducts) + 1);
-      context.shoppingCart.product.setDataProduct([...addToCart, product]);
+      context.shoppingCart.product.setDataProduct([...addToCart, copy]);
     }
   }
   return (

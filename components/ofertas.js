@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Product from "./product";
 import ofertas from "../list-products/ofertas";
+
 const OfertasStyled = styled.section`
   background: var(--white);
   padding: 2.5rem;

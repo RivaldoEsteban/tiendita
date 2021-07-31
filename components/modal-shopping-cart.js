@@ -76,6 +76,7 @@ function ModalShoppingCart({ modalShoppingCart }) {
   const context = useContext(Context);
   const location = context.refLocation.value;
   // console.log(context.refLocation);
+  console.log(context);
   const productList = context.shoppingCart.product.value;
 
   return (

@@ -1,4 +1,4 @@
-import Reactn, { useContext } from "react";
+import Reactn, { useContext, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { Context } from "../pages/index";
 const GoPayStyled = styled.div`
@@ -52,13 +52,15 @@ const GoPayStyled = styled.div`
   }
 `;
 
-function GoPay({ productList, total }) {
+function GoPay({ productList, currentPrice, setCurrentPrice }) {
   const context = useContext(Context);
-  console.log(context);
   function handleRemoveProducts() {
     context.shoppingCart.product.setDataProduct("");
     context.refCurrentProducts.setShoppingCart(0);
+    setCurrentPrice(0);
   }
+  // console.log(currentPrice);
+
   return (
     <GoPayStyled>
       <div className="pay-for-products">
@@ -73,7 +75,7 @@ function GoPay({ productList, total }) {
             Ir a pagar
           </p>
           <p className="amount" aria-hidden="true">
-            ${total}
+            $ <b>{currentPrice}</b>
           </p>
         </div>
       </div>

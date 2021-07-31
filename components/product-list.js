@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import GoPay from "./go-pay";
 import ProductList from "./shoppingCart/product-list";
@@ -14,20 +14,38 @@ const ProductListStyled = styled.div`
 `;
 
 function Products({ productList }) {
+  const [currentPrice, setCurrentPrice] = useState();
+
   let suma = 0;
   productList.forEach((product) => {
-    suma += Number(product.precioActual);
+    suma += Number(product[0].precioActual);
   });
-  console.log(suma);
 
+  useEffect(() => {
+    setCurrentPrice(suma.toFixed(2));
+  }, []);
+
+  // console.log(currentPrice);
   return (
     <ProductListStyled>
       <ProductList>
         {productList.map((product) => {
-          return <Product product={product} key={product.name} />;
+          // console.log(product[0]);
+          return (
+            <Product
+              product={product[0]}
+              key={product.name}
+              setCurrentPrice={setCurrentPrice}
+              currentPrice={currentPrice}
+            />
+          );
         })}
       </ProductList>
-      <GoPay productList={productList} total={suma} />
+      <GoPay
+        productList={productList}
+        currentPrice={currentPrice}
+        setCurrentPrice={setCurrentPrice}
+      />
     </ProductListStyled>
   );
 }

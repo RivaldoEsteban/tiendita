@@ -60,7 +60,6 @@ const HeaderStyled = styled.header`
 
 function Header({ modalBuyProduct, modalShoppingCart }) {
   const context = useContext(Context);
-  console.log(context);
 
   const location = context.refLocation.value;
   const currentProducts = context.refCurrentProducts.value;
