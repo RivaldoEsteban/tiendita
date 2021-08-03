@@ -4,7 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
-/pages/api
+
+pages/api/places.js
 # testing
 /coverage
 
