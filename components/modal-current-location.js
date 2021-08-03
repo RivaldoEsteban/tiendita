@@ -2,14 +2,14 @@ import React, { useRef, useState, useContext } from "react";
 import styled from "styled-components";
 import location from "../services/geolocation";
 import Place from "./place";
-import { Context } from "../pages/index";
+import { Context } from "../pages/_app";
 
-const ModalCurrentLocationStyled = styled.div`
+export const ModalCurrentLocationStyled = styled.div`
   position: fixed;
   block-size: 100vh;
   inline-size: 100vw;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 5;
+  z-index: ${(props) => props.zIndex || 5};
   .modal {
     position: absolute;
     right: calc(50% - (700px / 2));
@@ -71,6 +71,23 @@ const ModalCurrentLocationStyled = styled.div`
       border: 1px solid royalblue;
     }
   }
+  @media (max-width: 750px) {
+    .modal {
+      inline-size: 28rem;
+      right: calc(50% - 14rem);
+      block-size: initial;
+    }
+  }
+  @media (max-width: 450px) {
+    .modal {
+      inline-size: calc(100% - 32px);
+      box-sizing: border-box;
+      right: 1rem;
+    }
+    .place p {
+      width: 200px;
+    }
+  }
 `;
 
 function ModalCurrentLocation({ modalHidden }) {
@@ -93,8 +110,14 @@ function ModalCurrentLocation({ modalHidden }) {
     modalHidden(false);
   }
 
+  function zIndex() {
+    if (modalHidden) {
+      return 11;
+    }
+  }
+
   return (
-    <ModalCurrentLocationStyled ref={modal}>
+    <ModalCurrentLocationStyled ref={modal} zIndex={zIndex}>
       <div className="modal animate__animated animate__fadeInDown">
         <button className="close-button" onClick={handleClick}>
           <i className="icon-close"></i>

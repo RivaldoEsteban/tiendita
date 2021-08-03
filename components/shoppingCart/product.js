@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useContext } from "react";
+import { Context } from "../../pages/_app";
 import styled from "styled-components";
 
 const ProductStyled = styled.div`
@@ -53,37 +54,50 @@ const ProductStyled = styled.div`
       }
     }
   }
+  @media (max-width: 600px) {
+    .cantidad span {
+      font-size: 14px;
+    }
+  }
 `;
 
 function Product({ product, setCurrentPrice, currentPrice }) {
+  const context = useContext(Context);
   const gramos = useRef(null);
   const unidad = useRef(null);
-
   const [pricePerGram, setPricePerGram] = useState(
-    Number(product.precioActual)
+    Number(product.finalPrice).toFixed(2)
   );
+  console.log(pricePerGram);
 
-  let resta = (Number(product.precioActual) * 250) / 1000;
-  let resta1 = (Number(product.precioActual) * 1) / 1;
+  let resta = ((Number(product.initialPrice) * 250) / 1000).toFixed(2);
+  let resta1 = ((Number(product.initialPrice) * 1) / 1).toFixed(2);
 
   function subtractGrams() {
     const cantidad = Number(gramos.current.textContent);
     if (cantidad >= 250) {
       gramos.current.textContent = cantidad - 250;
-      let price = Number(pricePerGram) - Number(resta);
-      setPricePerGram(Number.parseFloat(price).toFixed(2));
+      product.finalGramos = cantidad - 250;
+      let price = (Number(pricePerGram) - Number(resta)).toFixed(2);
+      setPricePerGram(Number(price));
+      product.finalPrice = Number(price);
+      console.log(product);
       const newPrice = Number(currentPrice) - Number(resta);
-      setCurrentPrice(Number.parseFloat(newPrice).toFixed(2));
+      setCurrentPrice(Number(newPrice).toFixed(2));
     }
   }
   function addGrams() {
     const cantidad = Number(gramos.current.textContent);
     if (cantidad >= 0) {
       gramos.current.textContent = cantidad + 250;
+      product.finalGramos = cantidad + 250;
+
       let price = Number(pricePerGram) + Number(resta);
-      setPricePerGram(Number.parseFloat(price).toFixed(2));
+      setPricePerGram(Number(price).toFixed(2));
+      product.finalPrice = Number(price);
+
       const newPrice = Number(currentPrice) + Number(resta);
-      setCurrentPrice(Number.parseFloat(newPrice).toFixed(2));
+      setCurrentPrice(Number(newPrice).toFixed(2));
     }
   }
 
@@ -91,10 +105,16 @@ function Product({ product, setCurrentPrice, currentPrice }) {
     const cantidad = Number(unidad.current.textContent);
     if (cantidad >= 1) {
       unidad.current.textContent = cantidad - 1;
-      const price = Number(pricePerGram) - Number(product.precioActual);
-      setPricePerGram(Number.parseFloat(price).toFixed(2));
+      product.finalGramos = cantidad - 1;
+
+      const price = (
+        Number(pricePerGram) - Number(product.initialPrice)
+      ).toFixed(2);
+      setPricePerGram(Number(price));
+      product.finalPrice = Number(price);
+
       const newPrice = Number(currentPrice) - Number(resta1);
-      setCurrentPrice(Number.parseFloat(newPrice).toFixed(2));
+      setCurrentPrice(Number(newPrice).toFixed(2));
     }
   }
 
@@ -102,11 +122,15 @@ function Product({ product, setCurrentPrice, currentPrice }) {
     const cantidad = Number(unidad.current.textContent);
     if (cantidad >= 0) {
       unidad.current.textContent = cantidad + 1;
-      const price = Number(pricePerGram) + Number(product.precioActual);
+      product.finalGramos = cantidad + 1;
+      const price = (
+        Number(pricePerGram) + Number(product.initialPrice)
+      ).toFixed(2);
+      setPricePerGram(Number(price).toFixed(2));
+      product.finalPrice = Number(price);
 
-      setPricePerGram(Number.parseFloat(price).toFixed(2));
       const newPrice = Number(currentPrice) + Number(resta1);
-      setCurrentPrice(Number.parseFloat(newPrice).toFixed(2));
+      setCurrentPrice(Number(newPrice).toFixed(2));
     }
   }
 
@@ -129,7 +153,10 @@ function Product({ product, setCurrentPrice, currentPrice }) {
             <i className="icon-minus"></i>
           </button>
           <span>
-            <b ref={gramos}> 1000 </b>g
+            <b ref={gramos}>
+              {product.finalGramos ? product.finalGramos : 1000}
+            </b>
+            g
           </span>
           <button onClick={addGrams}>
             <i className="icon-plus"></i>
@@ -141,7 +168,8 @@ function Product({ product, setCurrentPrice, currentPrice }) {
             <i className="icon-minus"></i>
           </button>
           <span>
-            <b ref={unidad}> 1 </b> u
+            <b ref={unidad}> {product.finalGramos ? product.finalGramos : 1}</b>
+            u
           </span>
           <button onClick={addUnits}>
             <i className="icon-plus"></i>

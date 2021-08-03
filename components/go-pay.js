@@ -1,6 +1,9 @@
+/* eslint-disable @next/next/link-passhref */
 import Reactn, { useContext, useRef, useEffect } from "react";
 import styled from "styled-components";
-import { Context } from "../pages/index";
+import { Context } from "../pages/_app";
+import Link from "next/link";
+
 const GoPayStyled = styled.div`
   .pay-for-products {
     position: absolute;
@@ -52,14 +55,14 @@ const GoPayStyled = styled.div`
   }
 `;
 
-function GoPay({ productList, currentPrice, setCurrentPrice }) {
+function GoPay({ productList, currentPrice }) {
   const context = useContext(Context);
+  localStorage.setItem("currentPrice", currentPrice);
+
   function handleRemoveProducts() {
     context.shoppingCart.product.setDataProduct("");
     context.refCurrentProducts.setShoppingCart(0);
-    setCurrentPrice(0);
   }
-  // console.log(currentPrice);
 
   return (
     <GoPayStyled>
@@ -67,17 +70,19 @@ function GoPay({ productList, currentPrice, setCurrentPrice }) {
         <div className="cancel-products" onClick={handleRemoveProducts}>
           <p>Vaciar canasta</p>
         </div>
-        <div className="pay">
-          <p className="amount-product" aria-hidden="true">
-            {productList.length}
-          </p>
-          <p className="text" aria-hidden="true">
-            Ir a pagar
-          </p>
-          <p className="amount" aria-hidden="true">
-            $ <b>{currentPrice}</b>
-          </p>
-        </div>
+        <Link href="/pay">
+          <div className="pay">
+            <p className="amount-product" aria-hidden="true">
+              {productList.length}
+            </p>
+            <p className="text" aria-hidden="true">
+              Ir a pagar
+            </p>
+            <p className="amount" aria-hidden="true">
+              $ <b>{currentPrice}</b>
+            </p>
+          </div>
+        </Link>
       </div>
     </GoPayStyled>
   );

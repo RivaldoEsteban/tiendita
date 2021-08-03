@@ -1,10 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { Context } from "../pages/index";
+import { Context } from "../pages/_app";
 import ButtonClose from "./button-close";
 import Products from "./product-list";
-
 const ShoppingCartStyled = styled.div`
   position: fixed;
   block-size: 100vh;
@@ -70,20 +69,33 @@ const ShoppingCartStyled = styled.div`
       border-radius: 0.5rem;
     }
   }
+  @media (max-width: 800px) {
+    .shopping-cart-content {
+      width: 100%;
+      height: 100%;
+    }
+  }
 `;
 
-function ModalShoppingCart({ modalShoppingCart }) {
+function ModalShoppingCart({ modalShoppingCart, modalLocation, modalBuy }) {
   const context = useContext(Context);
   const location = context.refLocation.value;
-  // console.log(context.refLocation);
-  console.log(context);
+  localStorage.setItem("location", location);
   const productList = context.shoppingCart.product.value;
+
+  function handleAddProducts() {
+    modalBuy(true);
+  }
+
+  function handleLocation() {
+    modalLocation(true);
+  }
 
   return (
     <ShoppingCartStyled>
       <div className="shopping-cart-content animate__animated animate__bounceInRight">
         <div className="location">
-          <p>
+          <p onClick={handleLocation}>
             Entregar en: <b>{location}</b>
           </p>
           <ButtonClose modalHidden={modalShoppingCart} />
@@ -95,7 +107,7 @@ function ModalShoppingCart({ modalShoppingCart }) {
             <div className="cart-empty">
               <img src="./images/family-shoping.png" alt="family shopping" />
               <h3>Tu canasta está vacía</h3>
-              <button>Agregar Productos</button>
+              <button onClick={handleAddProducts}>Agregar Productos</button>
             </div>
           )}
         </div>
@@ -105,15 +117,3 @@ function ModalShoppingCart({ modalShoppingCart }) {
 }
 
 export default ModalShoppingCart;
-
-// {
-//   /* {false ? (
-//   ""
-// ) : (
-//   <div className="cart-empty">
-//     <img src="./images/family-shoping.png" alt="family shopping" />
-//     <h3>Tu canasta está vacía</h3>
-//     <button>Agregar Productos</button>
-//   </div>
-// )} */
-// }

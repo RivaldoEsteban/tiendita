@@ -1,16 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useContext, useState, useRef } from "react";
 import styled from "styled-components";
-import { Context } from "../pages/index";
+import { Context } from "../pages/_app";
 import Allproducts from "./allProducts";
 import AddedProduct from "./added-product";
+import morePopular from "../list-products/more-popular";
 
 const ModalBuyProductStyled = styled.div`
   position: fixed;
   block-size: 100vh;
   inline-size: 100vw;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 5;
+  z-index: ${(props) => props.zIndex || 5};
   .buy-product-content {
     overflow-y: auto;
     inline-size: 62.5rem;
@@ -105,29 +106,96 @@ const ModalBuyProductStyled = styled.div`
     display: flex;
     gap: 1rem;
   }
+  /* @media (min-width: 1000px) {
+    border: 1px solid red;
+    .product-image img {
+      border: 1px solid red;
+      width: 100px;
+    }
+  } */
+  @media (max-width: 1100px) {
+    h3,
+    h4 {
+      margin: 0;
+      margin-bottom: 1rem;
+    }
+    .buy-product-content {
+      inline-size: 50rem;
+      left: calc(50% - 25rem);
+    }
+    .description {
+      font-size: 1.2rem;
+    }
+    .price {
+      font-size: 1.4rem;
+    }
+    select {
+      font-size: 0.8rem;
+    }
+  }
+  @media (max-width: 950px) {
+    .buy-product-content {
+      inline-size: 40rem;
+      left: calc(50% - 20rem);
+    }
+  }
+  @media (max-width: 750px) {
+    .buy-product-content {
+      inline-size: 90%;
+      block-size: 90%;
+      top: calc(100% - 95%);
+      left: calc(100% - 95%);
+      right: initial;
+      padding: 1.5rem 1rem;
+    }
+    .product-selected {
+      flex-direction: column;
+      padding: 0;
+      width: 100%;
+      > * {
+        width: 100%;
+      }
+    }
+    .product-image {
+      img {
+        width: 200px;
+      }
+    }
+  }
+  @media (max-width: 500px) {
+  }
 `;
 
 function ModalBuyProduct({ showModal }) {
   const context = useContext(Context);
   const select = useRef(null);
   const [purchaseCompleted, setPurchaseCompleted] = useState(false);
-  const product = context.context;
-  const copy = [product].slice();
+  const productFabuloso = morePopular[5];
+  const product = context.context.name ? context.context : productFabuloso;
   const addToCart = context.shoppingCart.product.value;
-
+  console.log(context);
+  console.log(product);
   function handleHideModal() {
     showModal(false);
   }
+
   function handleDataProduct() {
     if (!purchaseCompleted) {
       setPurchaseCompleted(true);
       const currentProducts = context.refCurrentProducts.value;
       context.refCurrentProducts.setShoppingCart(Number(currentProducts) + 1);
-      context.shoppingCart.product.setDataProduct([...addToCart, copy]);
+      context.shoppingCart.product.setDataProduct([...addToCart, product]);
     }
   }
+
+  function zIndex() {
+    if (showModal) {
+      return 11;
+    }
+  }
+
   return (
-    <ModalBuyProductStyled>
+    <ModalBuyProductStyled zIndex={zIndex}>
       {purchaseCompleted ? <AddedProduct hidden={setPurchaseCompleted} /> : ""}
       <div className="buy-product-content  animate__animated animate__fadeInDown">
         <div className="close">
@@ -142,7 +210,7 @@ function ModalBuyProduct({ showModal }) {
           <div className="product-description">
             <div>
               <h3 className="description">{product?.description}</h3>
-              <p className="price">· ${product?.precioActual} /Kg</p>
+              <p className="price">· ${product?.initialPrice} /Kg</p>
               <p className="iva">Precios con IVA incluido</p>
               <p className="peso">
                 Peso aproximado por pieza, puede variar de acuerdo al peso real.

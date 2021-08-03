@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { Context } from "../pages/index";
+import { Context } from "../pages/_app";
 const ProductStyled = styled.div`
   inline-size: 12.5rem;
   block-size: 26.62rem;
@@ -80,7 +80,7 @@ function Product({ product, showModal, setDataProduct }) {
       </button>
       <img src={`./images/${product.name}.jpg`} alt={product.description} />
       <div className="prices">
-        <p>${product.precioActual}/kg</p>
+        <p>${product.initialPrice}/kg</p>
         <p className="previous-price">${product.precioAntes}/kg</p>
       </div>
       <h3>{product.description}</h3>

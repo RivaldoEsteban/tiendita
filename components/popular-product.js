@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { Context } from "../pages/index";
+import { Context } from "../pages/_app";
 const PopularProductStyled = styled.div`
   width: 12.5rem;
   block-size: 26.62rem;
@@ -55,7 +55,7 @@ function PopularProduct({ product, showModal, setDataProduct }) {
   return (
     <PopularProductStyled id={product.name}>
       <img src={`./images/${product.name}.jpg`} alt={product.name} />
-      <p className="price">${product.precioActual}</p>
+      <p className="price">${product.initialPrice}</p>
       <p className="description">{product.description}</p>
       <p className="price-gram">{product.gramos}</p>
       <button className="button-add" onClick={handleClick}>

@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import GoPay from "./go-pay";
 import ProductList from "./shoppingCart/product-list";
 import Product from "./shoppingCart/product";
+import { Context } from "../pages/_app";
 
 const ProductListStyled = styled.div`
   display: flex;
@@ -11,40 +12,48 @@ const ProductListStyled = styled.div`
   gap: 1rem;
   overflow: auto;
   height: 90%;
+  border: 1px solid red;
+  padding-bottom: 100px;
 `;
 
 function Products({ productList }) {
-  const [currentPrice, setCurrentPrice] = useState();
+  const context = useContext(Context);
+  const finalPrice = context.shoppingCart.finalPrice.value;
+  const setFinalPrice = context.shoppingCart.finalPrice.setPrice;
+
+  // const [currentPrice, setCurrentPrice] = useState();
+  const localStorage = window.localStorage;
+  localStorage.setItem("products", JSON.stringify(productList));
+  localStorage.setItem("finalPrice", JSON.stringify(finalPrice));
 
   let suma = 0;
   productList.forEach((product) => {
-    suma += Number(product[0].precioActual);
+    console.log(product);
+    suma += Number(product.finalPrice);
   });
 
   useEffect(() => {
-    setCurrentPrice(suma.toFixed(2));
+    setFinalPrice(suma.toFixed(2));
   }, []);
 
-  // console.log(currentPrice);
   return (
     <ProductListStyled>
       <ProductList>
         {productList.map((product) => {
-          // console.log(product[0]);
           return (
             <Product
-              product={product[0]}
+              product={product}
               key={product.name}
-              setCurrentPrice={setCurrentPrice}
-              currentPrice={currentPrice}
+              setCurrentPrice={setFinalPrice}
+              currentPrice={finalPrice}
             />
           );
         })}
       </ProductList>
       <GoPay
         productList={productList}
-        currentPrice={currentPrice}
-        setCurrentPrice={setCurrentPrice}
+        currentPrice={finalPrice}
+        //  setFinalPrice={setCurrentPrice}
       />
     </ProductListStyled>
   );

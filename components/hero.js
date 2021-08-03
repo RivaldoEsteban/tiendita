@@ -25,6 +25,37 @@ const HeroStyled = styled.section`
       left: calc(50% - (680px / 2));
     }
   }
+  @media (max-width: 800px) {
+    p {
+      font-size: 1.5rem;
+      height: auto;
+      width: 550px;
+      text-align: center;
+      top: calc(50% - (72px / 2));
+      left: calc(50% - (550px / 2));
+    }
+  }
+  @media (max-width: 650px) {
+    p {
+      font-size: 1.5rem;
+      height: auto;
+      width: 400px;
+      text-align: center;
+      top: calc(50% - (72px / 2));
+      left: calc(50% - (400px / 2));
+    }
+  }
+  @media (max-width: 600px) {
+    padding: 0 1rem;
+    p {
+      font-size: 1.5rem;
+      height: auto;
+      width: 300px;
+      text-align: center;
+      top: calc(50% - (105px / 2));
+      left: calc(50% - (300px / 2));
+    }
+  }
 `;
 
 function Hero() {

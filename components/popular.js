@@ -18,6 +18,9 @@ const PopularStyled = styled.section`
     font: var(--headline3);
     color: var(--black);
   }
+  @media (max-width: 600px) {
+    border-radius: 0;
+  }
 `;
 
 function PopularProducts({ showModal }) {

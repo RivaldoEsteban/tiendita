@@ -13,6 +13,7 @@ const AddedProductStyled = styled.div`
   top: 1.5rem;
   border-radius: 0.5rem;
   overflow: hidden;
+  z-index: 15;
   .loadBar {
     animation-name: loadBar;
     animation-duration: 2s;
@@ -31,6 +32,8 @@ const AddedProductStyled = styled.div`
         inline-size: 100%;
       }
     }
+  }
+  @media (max-width: 600px) {
   }
 `;
 

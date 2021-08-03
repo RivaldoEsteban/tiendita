@@ -17,6 +17,9 @@ const OfertasStyled = styled.section`
     margin: 0 0 40px 0;
     font: var(--headline3);
   }
+  @media (max-width: 600px) {
+    border-radius: 0;
+  }
 `;
 
 function Offers({ showModal }) {

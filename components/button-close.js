@@ -12,6 +12,9 @@ export const ButtonCloseStyled = styled.button`
   text-align: end;
   display: block;
   border: none;
+  i {
+    font-size: 14.1px;
+  }
 `;
 
 function ButtonClose({ modalHidden }) {
