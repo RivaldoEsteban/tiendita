@@ -69,7 +69,7 @@ function ToPay() {
     const products =
       productsContext.length > 0 ? productsContext : JSON.parse(data);
     setProducts(products);
-  }, []);
+  }, [context]);
 
   console.log(products);
   return (

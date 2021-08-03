@@ -12,7 +12,6 @@ const ProductListStyled = styled.div`
   gap: 1rem;
   overflow: auto;
   height: 90%;
-  border: 1px solid red;
   padding-bottom: 100px;
 `;
 
@@ -34,7 +33,7 @@ function Products({ productList }) {
 
   useEffect(() => {
     setFinalPrice(suma.toFixed(2));
-  }, []);
+  }, [finalPrice, setFinalPrice, suma]);
 
   return (
     <ProductListStyled>
