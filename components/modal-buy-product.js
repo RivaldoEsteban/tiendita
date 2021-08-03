@@ -106,13 +106,6 @@ const ModalBuyProductStyled = styled.div`
     display: flex;
     gap: 1rem;
   }
-  /* @media (min-width: 1000px) {
-    border: 1px solid red;
-    .product-image img {
-      border: 1px solid red;
-      width: 100px;
-    }
-  } */
   @media (max-width: 1100px) {
     h3,
     h4 {
