@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps }) {
         <meta property="og:url" content="https://tiendita-nu.vercel.app/" />
         <meta
           property="og:image"
-          content="https://github.com/RivaldoEsteban/tiendita/blob/main/public/images/opengraph.jpg?raw=true"
+          content="https://api.vercel.com/now/files/6bda49da479ddd42f797e50e8de6bf6e047a7264/opengraph.png"
         />
         <meta
           property="og:description"
