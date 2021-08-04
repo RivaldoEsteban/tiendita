@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import Wrapper from "./wrapper";
-import Hero from "./hero";
+import Wrapper from "./wrapper/wrapper";
+import Hero from "./hero/hero";
 import Offer from "./ofertas";
 import PopularProducts from "./popular";
 

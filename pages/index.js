@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Header from "../components/header";
+import Header from "../components/header/header";
 import Main from "../components/main";
-import Head from "next/head";
 
 import ModalCurrentLocation from "../components/modal-current-location";
 import ModalBuyProduct from "../components/modal-buy-product";

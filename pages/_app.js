@@ -37,6 +37,20 @@ function MyApp({ Component, pageProps }) {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
         />
+        <meta
+          property="og:title"
+          content="Tiendita || El mercado a la puerta de tu casa"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://tiendita-nu.vercel.app/" />
+        <meta
+          property="og:image"
+          content="https://github.com/RivaldoEsteban/tiendita/blob/main/public/images/opengraph.jpg?raw=true"
+        />
+        <meta
+          property="og:description"
+          content="Realiza la compra de tu despensa semanal de manera digital! Tiendita te ayuda a protegerte de los contagios y no extrañar ninguno de los productos del supermercado en tu hogar."
+        />
         <title>Tiendita</title>
       </Head>
 

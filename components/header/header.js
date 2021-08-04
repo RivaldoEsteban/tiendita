@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import Wrappeer from "./wrapper";
-import { Context } from "../pages/_app";
+import Wrappeer from "../wrapper/wrapper";
+import { Context } from "../../pages/_app";
 
 const HeaderStyled = styled.header`
   background: var(--white);
