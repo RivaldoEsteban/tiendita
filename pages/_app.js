@@ -53,7 +53,6 @@ function MyApp({ Component, pageProps }) {
         />
         <title>Tiendita</title>
       </Head>
-
       <Component {...pageProps} />
     </Context.Provider>
   );
