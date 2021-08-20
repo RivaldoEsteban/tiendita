@@ -14,6 +14,15 @@ const ProductImageStyled = styled.div`
     object-fit: cover;
     vertical-align: middle;
   }
+  @media (max-width: 600px) {
+    display: block;
+    width: 100%;
+    img {
+      display: block;
+      margin: auto;
+      object-fit: contain;
+    }
+  }
 `;
 
 function ProductImage({ product }) {

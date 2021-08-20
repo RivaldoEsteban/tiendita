@@ -74,7 +74,7 @@ function Product({ product, setCurrentPrice, currentPrice }) {
 
   function subtractGrams() {
     const cantidad = Number(gramos.current.textContent);
-    if (cantidad >= 250) {
+    if (cantidad > 250) {
       gramos.current.textContent = cantidad - 250;
       product.finalGramos = cantidad - 250;
       let price = (Number(pricePerGram) - Number(resta)).toFixed(2);
@@ -87,7 +87,7 @@ function Product({ product, setCurrentPrice, currentPrice }) {
   }
   function addGrams() {
     const cantidad = Number(gramos.current.textContent);
-    if (cantidad >= 0) {
+    if (cantidad > 0) {
       gramos.current.textContent = cantidad + 250;
       product.finalGramos = cantidad + 250;
 
@@ -102,7 +102,7 @@ function Product({ product, setCurrentPrice, currentPrice }) {
 
   function subtractUnits() {
     const cantidad = Number(unidad.current.textContent);
-    if (cantidad >= 1) {
+    if (cantidad > 1) {
       unidad.current.textContent = cantidad - 1;
       product.finalGramos = cantidad - 1;
 
@@ -119,7 +119,7 @@ function Product({ product, setCurrentPrice, currentPrice }) {
 
   function addUnits() {
     const cantidad = Number(unidad.current.textContent);
-    if (cantidad >= 0) {
+    if (cantidad > 0) {
       unidad.current.textContent = cantidad + 1;
       product.finalGramos = cantidad + 1;
       const price = (

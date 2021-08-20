@@ -24,6 +24,9 @@ const ProductDescriptionStyled = styled.div`
     margin: 0.5rem 0;
     font: var(--body1-regular);
   }
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 function ProductDescription({ product, event }) {

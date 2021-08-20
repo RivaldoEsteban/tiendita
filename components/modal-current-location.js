@@ -8,9 +8,9 @@ import Overlay from "./overlay";
 
 export const ModalCurrentLocationStyled = styled.div`
   .modal {
-    /* position: absolute;
+    position: absolute;
     right: calc(50% - (700px / 2));
-    top: 9.37rem; */
+    top: 9.37rem;
     inline-size: 43.75rem;
     block-size: 22.125rem;
     padding: 2.5rem;
@@ -18,15 +18,6 @@ export const ModalCurrentLocationStyled = styled.div`
     color: var(--cocoabrown);
     border-radius: 1rem;
     z-index: 10;
-  }
-
-  .container {
-    block-size: inherit;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    min-block-size: inherit;
   }
 
   .close-button {
@@ -88,11 +79,14 @@ export const ModalCurrentLocationStyled = styled.div`
   @media (max-width: 468px) {
     .container {
       min-block-size: inherit;
-      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 1rem;
+      flex-direction: column;
     }
     .modal {
       width: 100%;
-      box-sizing: border-box;
       position: initial;
     }
     .place p {
@@ -143,10 +137,11 @@ function ModalCurrentLocation({ modalHidden }) {
     <Overlay event={handleClosedPage} zIndex={zIndex}>
       <ModalCurrentLocationStyled ref={modal}>
         <FullBlockSizeView>
-          <div onClick={handleModalClick} className="container">
+          <div className="container">
             <form
               className="modal animate__animated animate__fadeInDown"
               onSubmit={handleSubmit}
+              onClick={handleModalClick}
             >
               <button className="close-button" onClick={handleClick}>
                 <i className="icon-close"></i>
