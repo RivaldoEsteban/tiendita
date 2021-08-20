@@ -1,6 +1,3 @@
-/* eslint-disable @next/next/link-passhref */
-/* eslint-disable react/jsx-key */
-/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState, useContext } from "react";
 import { Context } from "./_app";
 import styled from "styled-components";
@@ -17,6 +14,13 @@ const ToPayStyled = styled.div`
   .back {
     padding: 1rem 2.5rem;
     background: var(--white);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    .current-location {
+      flex: 1;
+      font: var(--headline2);
+    }
   }
   .buy {
     display: flex;
@@ -55,10 +59,9 @@ const ToPayStyled = styled.div`
 
 function ToPay() {
   const context = useContext(Context);
-  console.log(context);
+  const currentLocation = context.refLocation.value;
   const finalPrice = context.shoppingCart.finalPrice.value;
   const setFinalPrice = context.shoppingCart.finalPrice.setPrice;
-  console.log(finalPrice);
   const [products, setProducts] = useState([]);
   const [successfulPurchase, setSuccessfulPurchase] = useState(false);
 
@@ -79,6 +82,9 @@ function ToPay() {
             <i className="icon-arrowLeft"></i>
           </ButtonCloseStyled>
         </Link>
+        <div className="current-location">
+          <span>{currentLocation}</span>
+        </div>
       </div>
       <div className="buy">
         <div className="product-list">

@@ -107,7 +107,6 @@ function ModalCurrentLocation({ modalHidden }) {
     modalHidden(false);
   }
   function handleToUpdatePosition() {
-    console.log();
     if (input.current.value) {
       context.refLocation.setLocation(input.current.value);
       modalHidden(false);

@@ -13,7 +13,7 @@ export const ButtonCloseStyled = styled.button`
   display: block;
   border: none;
   i {
-    font-size: 14.1px;
+    font-size: 1.3rem;
   }
 `;
 

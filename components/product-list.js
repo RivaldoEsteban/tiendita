@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import GoPay from "./go-pay";
 import ProductList from "./shoppingCart/product-list";
@@ -52,7 +52,6 @@ function Products({ productList, modalLocation }) {
         productList={productList}
         currentPrice={finalPrice}
         modalLocation={modalLocation}
-        //  setFinalPrice={setCurrentPrice}
       />
     </ProductListStyled>
   );

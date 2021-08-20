@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import styled from "styled-components";
+import InputMask from "react-input-mask";
 
 const DataClientStyled = styled.form`
   padding: 0 1.5rem;
@@ -28,6 +29,9 @@ const DataClientStyled = styled.form`
     border: 1px solid #3c42571f;
   }
 
+  .number {
+    border: 1px solid red;
+  }
   .email,
   .card-data,
   .customer-name {
@@ -57,6 +61,9 @@ const DataClientStyled = styled.form`
     }
   }
   .expiration-date {
+    .clave-card {
+      border-left: 1px solid #3c42571f;
+    }
     display: flex;
     position: relative;
     .date {
@@ -112,22 +119,21 @@ function DataClient({ finalPrice, setSuccessfulPurchase }) {
         <label htmlFor="">Información de la tarjeta</label>
         <div className="data">
           <div className="mastercard">
-            <input type="number" placeholder="8371 3332 5420 1030" required />
+            <InputMask
+              mask="9999 9999 9999 9999"
+              placeholder="8371 3332 5420 1030"
+            />
             <img src="./icons/mastercard.svg" alt="mastercard card" />
           </div>
           <div className="expiration-date">
+            <InputMask mask="99/99" placeholder="DD/MM" />
             <input
-              className="date"
-              type="month"
-              name="month"
-              id="month"
+              className="clave-card"
+              type="text"
+              pattern="[0-9]+"
               required
-            />
-            <input
-              className="number"
-              type="number"
-              required
-              placeholder="123"
+              placeholder="CVC"
+              maxLength="3"
             />
             <img src="icons/card-cvc.svg" alt="" />
           </div>
