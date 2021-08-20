@@ -12,6 +12,12 @@ const MainStyled = styled.main`
     flex-direction: column;
     gap: 2.5rem;
   }
+  @media (max-width: 480px) {
+    padding: 1.5rem 0;
+    .main-content {
+      gap: 1.5rem;
+    }
+  }
 `;
 
 function Main({ showModal }) {

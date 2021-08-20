@@ -3,17 +3,18 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { Context } from "../pages/_app";
 import AddedProduct from "./added-product";
+import Button from "./button";
+import { v4 as uuidv4 } from "uuid";
 
 const ProductStyled = styled.div`
-  inline-size: 12.5rem;
-  block-size: 26.62rem;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: start;
   position: relative;
   gap: 1rem;
   cursor: pointer;
-  * {
+  justify-content: space-between;
+  > * {
     margin: 0;
   }
   .button-descuento {
@@ -35,8 +36,6 @@ const ProductStyled = styled.div`
     background: var(--malachite);
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
-    position: absolute;
-    bottom: 0;
   }
   .prices {
     display: flex;
@@ -45,12 +44,15 @@ const ProductStyled = styled.div`
   }
   h3 {
     font: var(--body2-regular);
+    block-size: 3.5rem;
+    margin: 0;
   }
   img {
     width: 100%;
     vertical-align: middle;
     object-fit: cover;
-    height: 10rem;
+    block-size: 10rem;
+    inline-size: 10rem;
   }
   .previous-price {
     opacity: 0.3;
@@ -65,6 +67,16 @@ const ProductStyled = styled.div`
     position: absolute;
     left: 0;
     top: calc(50% - 1px);
+  }
+  .price-gram {
+    color: var(--boulder);
+    font: var(--caption-regular);
+    margin: 0;
+  }
+  .product-data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 `;
 
@@ -83,7 +95,10 @@ function Product({ product, showModal, setPurchaseCompleted }) {
       context.refCurrentProducts.setShoppingCart(
         Number(context.refCurrentProducts.value) + 1
       );
-      context.shoppingCart.product.setDataProduct([...addToCart, product]);
+      context.shoppingCart.product.setDataProduct([
+        ...addToCart,
+        { product, id: uuidv4() },
+      ]);
     }
   }
 
@@ -93,20 +108,28 @@ function Product({ product, showModal, setPurchaseCompleted }) {
   }
   return (
     <ProductStyled id={product.name} onClick={details}>
-      {active && <AddedProduct hidden={setActive} />}
-      <button className="button-descuento">
-        <span>{product.discount}%</span>
-        dto.
-      </button>
-      <img src={`./images/${product.name}.jpg`} alt={product.description} />
-      <div className="prices">
-        <p>${product.initialPrice}/kg</p>
-        <p className="previous-price">${product.precioAntes}/kg</p>
+      <div className="product-data">
+        {active && <AddedProduct hidden={setActive} />}
+        {product.discount && (
+          <button className="button-descuento">
+            <span>{product.discount}%</span>
+            dto.
+          </button>
+        )}
+        <img src={`./images/${product.name}.jpg`} alt={product.description} />
+        <div className="prices">
+          <p>${product.initialPrice}/kg</p>
+
+          {product.precioAntes && (
+            <p className="previous-price">${product.precioAntes}/kg</p>
+          )}
+        </div>
+        <h3>{product.description}</h3>
+        {product.gramos && <p className="price-gram">{product.gramos}</p>}
       </div>
-      <h3>{product.description}</h3>
-      <button className="button-add" onClick={handleClick}>
-        Agregar
-      </button>
+      <div>
+        <Button event={handleClick}>Agregar</Button>
+      </div>
     </ProductStyled>
   );
 }

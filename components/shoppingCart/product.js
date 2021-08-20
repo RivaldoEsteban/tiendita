@@ -68,7 +68,6 @@ function Product({ product, setCurrentPrice, currentPrice }) {
   const [pricePerGram, setPricePerGram] = useState(
     Number(product.finalPrice).toFixed(2)
   );
-  console.log(pricePerGram);
 
   let resta = ((Number(product.initialPrice) * 250) / 1000).toFixed(2);
   let resta1 = ((Number(product.initialPrice) * 1) / 1).toFixed(2);

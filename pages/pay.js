@@ -2,12 +2,12 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Context } from "./_app";
 import styled from "styled-components";
-import Product from "../components/shoppingCart/product";
 import { ButtonCloseStyled } from "../components/button-close";
-import Link from "next/link";
+import Product from "../components/shoppingCart/product";
 import DataClient from "../components/data-client";
 import SuccessfulPurchase from "../components/successful-purchase";
 import FullHigthView from "../components/full-block-size-view";
+import { useRouter } from "next/router";
 
 const ToPayStyled = styled.div`
   .back {
@@ -60,6 +60,7 @@ const ToPayStyled = styled.div`
 function ToPay() {
   const context = useContext(Context);
   const currentLocation = context.refLocation.value;
+  const router = useRouter();
   const finalPrice = context.shoppingCart.finalPrice.value;
   const setFinalPrice = context.shoppingCart.finalPrice.setPrice;
   const [products, setProducts] = useState([]);
@@ -67,34 +68,38 @@ function ToPay() {
 
   useEffect(() => {
     const productsContext = context.shoppingCart.product.value;
+    console.log(productsContext);
     const data = localStorage.products;
     const products =
       productsContext.length > 0 ? productsContext : JSON.parse(data);
     setProducts(products);
   }, []);
 
+  function backHome() {
+    console.log(router);
+    router.push("/");
+  }
   return (
     <ToPayStyled>
       <FullHigthView>
         {successfulPurchase ? <SuccessfulPurchase /> : null}
         <div className="back">
-          <Link href="/">
+          <div onClick={backHome}>
             <ButtonCloseStyled>
               <i className="icon-arrowLeft"></i>
             </ButtonCloseStyled>
-          </Link>
+          </div>
           <div className="current-location">
             <span>{currentLocation}</span>
           </div>
         </div>
-        <div></div>
         <div className="buy">
           <div className="product-list">
             {products.map((product) => {
               return (
                 <Product
-                  product={product}
-                  key={product.name}
+                  product={product.product}
+                  key={product.id}
                   setCurrentPrice={setFinalPrice}
                   currentPrice={finalPrice}
                 />

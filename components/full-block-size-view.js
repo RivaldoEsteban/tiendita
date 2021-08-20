@@ -5,14 +5,26 @@ const FullHigthViewStyled = styled.div`
   min-block-size: ${(props) => props.blockSize};
 `;
 
-function FullHigthView({ children }) {
+function FullBlockSizeView({ children }) {
   const [blockSize, setBlockSize] = useState("100vh");
-  useEffect(() => {
+  function handleResize() {
+    setSize();
+  }
+
+  function setSize() {
     setBlockSize(`${window.innerHeight}px`);
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
+
   return (
     <FullHigthViewStyled blockSize={blockSize}>{children}</FullHigthViewStyled>
   );
 }
 
-export default FullHigthView;
+export default FullBlockSizeView;

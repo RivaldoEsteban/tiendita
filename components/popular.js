@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import morePopular from "../list-products/more-popular";
-import PopularProduct from "./popular-product";
+import Product from "./product";
 
 const PopularStyled = styled.section`
   background: var(--white);
@@ -30,7 +30,7 @@ function PopularProducts({ showModal }) {
       <div className="product-list">
         {morePopular.map((product) => {
           return (
-            <PopularProduct
+            <Product
               product={product}
               key={product.name}
               showModal={showModal}

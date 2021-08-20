@@ -5,13 +5,13 @@ import { Context } from "../pages/_app";
 import Allproducts from "./allProducts";
 import AddedProduct from "./added-product";
 import morePopular from "../list-products/more-popular";
-import FullHigthView from "./full-block-size-view";
+import FullBlockSizeView from "./full-block-size-view";
+import Overlay from "./overlay";
+import Button from "./button";
+import ButtonClose from "./button-close";
+import ProductData from "./modalBuyProduct/product-data";
 
 const ModalBuyProductStyled = styled.div`
-  position: fixed;
-  inline-size: 100vw;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: ${(props) => props.zIndex || 5};
   .buy-product-content {
     overflow-y: auto;
     inline-size: 62.5rem;
@@ -25,40 +25,7 @@ const ModalBuyProductStyled = styled.div`
     right: calc(50% - (62.5rem / 2));
     z-index: 10;
   }
-  .product-selected {
-    display: flex;
-  }
-  .product-image {
-    width: 50%;
-    display: flex;
-    align-items: center;
-    img {
-      width: 70%;
-      margin: auto;
-      object-fit: cover;
-      vertical-align: middle;
-    }
-  }
-  .product-description {
-    width: 50%;
-    padding: 1.5rem;
-    .description {
-      margin: 1rem 0;
-      font: var(--headline1);
-    }
-    .price {
-      margin: 0;
-      font: var(--headline2);
-    }
-    .iva {
-      margin: 0;
-      font: var(--caption-regular);
-    }
-    .peso {
-      margin: 0.5rem 0;
-      font: var(--body1-regular);
-    }
-  }
+
   .close {
     display: flex;
     justify-content: flex-end;
@@ -181,7 +148,7 @@ function ModalBuyProduct({ showModal }) {
 
   function zIndex() {
     if (showModal) {
-      return 11;
+      return 12;
     }
   }
   function handleClosedPage() {
@@ -192,44 +159,27 @@ function ModalBuyProduct({ showModal }) {
   }
 
   return (
-    <ModalBuyProductStyled zIndex={zIndex} onClick={handleClosedPage}>
-      <FullHigthView>
-        {purchaseCompleted && <AddedProduct hidden={setPurchaseCompleted} />}
-        <div
-          className="buy-product-content  animate__animated animate__fadeInDown"
-          onClick={handleModalClick}
-        >
-          <div className="close">
-            <button onClick={handleHideModal}>
-              <i className="icon-close"></i>
-            </button>
-          </div>
-          <div className="product-selected">
-            <div className="product-image">
-              <img src={`./images/${product?.name}.jpg`} alt={product?.name} />
+    <Overlay zIndex={zIndex} event={handleClosedPage}>
+      <ModalBuyProductStyled>
+        <FullBlockSizeView>
+          {purchaseCompleted && <AddedProduct hidden={setPurchaseCompleted} />}
+          <div
+            className="buy-product-content  animate__animated animate__fadeInDown"
+            onClick={handleModalClick}
+          >
+            <div className="close">
+              <ButtonClose modalHidden={handleHideModal} />
             </div>
-            <div className="product-description">
-              <div>
-                <h3 className="description">{product?.description}</h3>
-                <p className="price">· ${product?.initialPrice} /Kg</p>
-                <p className="iva">Precios con IVA incluido</p>
-                <p className="peso">
-                  Peso aproximado por pieza, puede variar de acuerdo al peso
-                  real.
-                </p>
-              </div>
-              <div className="fruit-ripening">
-                <button onClick={handleDataProduct}>Agregar al carrito</button>
-              </div>
-            </div>
+            <ProductData product={product} event={handleDataProduct} />
+            <div className="product-selected"></div>
+            <Allproducts
+              showModal={showModal}
+              setPurchaseCompleted={setPurchaseCompleted}
+            />
           </div>
-          <Allproducts
-            showModal={showModal}
-            setPurchaseCompleted={setPurchaseCompleted}
-          />
-        </div>
-      </FullHigthView>
-    </ModalBuyProductStyled>
+        </FullBlockSizeView>
+      </ModalBuyProductStyled>
+    </Overlay>
   );
 }
 

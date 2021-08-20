@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Product from "./product";
-import PopularProduct from "./popular-product";
 import ofertas from "../list-products/ofertas";
 import morePopular from "../list-products/more-popular";
 const AllproductsStyled = styled.div`
@@ -29,7 +28,7 @@ function Allproducts({ showModal, setPurchaseCompleted }) {
 
         {morePopular.map((product) => {
           return (
-            <PopularProduct
+            <Product
               product={product}
               key={product.name}
               showModal={showModal}

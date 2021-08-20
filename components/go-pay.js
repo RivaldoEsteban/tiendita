@@ -3,14 +3,9 @@ import Reactn, { useContext, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { Context } from "../pages/_app";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 const GoPayStyled = styled.div`
   .pay-for-products {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
     block-size: 4.5rem;
     padding: 1rem;
     box-shadow: 0px 1px 0px 0px #0000000d inset;
