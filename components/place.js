@@ -5,12 +5,13 @@ const PlaceStyled = styled.div`
   background: var(--white);
   border-radius: 0.5rem;
   border: 1px solid #b8b4b4;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   position: relative;
   bottom: 50px;
+  max-block-size: 150px;
+  overflow: auto;
   .place {
     display: flex;
     align-items: center;

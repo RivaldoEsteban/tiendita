@@ -127,8 +127,34 @@ function MyApp({ Component, pageProps }) {
           name="msapplication-TileImage"
           content="favicon/ms-icon-144x144.png"
         />
-        <meta name="theme-color" content="#ffffff" />
-        <title>Tiendita</title>
+        <meta
+          name="description"
+          content="Realiza la compra de tu despensa semanal de manera digital! Tiendita te ayuda a protegerte de los contagios y no extrañar ninguno de los productos del supermercado en tu hogar."
+        />
+        <meta
+          name="theme-color"
+          content="#FC462D"
+          media="(prefers-color-scheme: light)"
+        />
+
+        <meta
+          name="theme-color"
+          content="#FC462D"
+          media="(prefers-color-scheme: dark)"
+        />
+
+        <meta
+          property="og:title"
+          content="Tiendita - Rivaldo Esteban portafolio"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://tiendita-nu.vercel.app/" />
+
+        <meta
+          property="og:image"
+          content="https://github.com/RivaldoEsteban/tiendita/blob/main/public/images/banner.png?raw=true"
+        />
+        <title>Tiendita - Rivaldo Esteban portafolio</title>
       </Head>
       <Component {...pageProps} />
     </Context.Provider>
