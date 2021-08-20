@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/link-passhref */
 import React, { useEffect, useState, useContext } from "react";
 import { Context } from "./_app";
 import styled from "styled-components";
@@ -6,11 +7,9 @@ import { ButtonCloseStyled } from "../components/button-close";
 import Link from "next/link";
 import DataClient from "../components/data-client";
 import SuccessfulPurchase from "../components/successful-purchase";
+import FullHigthView from "../components/full-block-size-view";
+
 const ToPayStyled = styled.div`
-  block-size: 100vh;
-  > * {
-    padding: 1.5rem 2.5rem 2.5rem;
-  }
   .back {
     padding: 1rem 2.5rem;
     background: var(--white);
@@ -23,6 +22,7 @@ const ToPayStyled = styled.div`
     }
   }
   .buy {
+    padding: 1.5rem 3rem;
     display: flex;
     justify-content: space-between;
     gap: 3rem;
@@ -37,7 +37,7 @@ const ToPayStyled = styled.div`
     background: var(--white);
     border-radius: 0.5rem;
     overflow: hidden;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 11px 29px rgba(0, 0, 0, 0.05);
     border: 1px solid #3c42571f;
   }
   @media (max-width: 850px) {
@@ -75,35 +75,38 @@ function ToPay() {
 
   return (
     <ToPayStyled>
-      {successfulPurchase ? <SuccessfulPurchase /> : null}
-      <div className="back">
-        <Link href="/">
-          <ButtonCloseStyled>
-            <i className="icon-arrowLeft"></i>
-          </ButtonCloseStyled>
-        </Link>
-        <div className="current-location">
-          <span>{currentLocation}</span>
+      <FullHigthView>
+        {successfulPurchase ? <SuccessfulPurchase /> : null}
+        <div className="back">
+          <Link href="/">
+            <ButtonCloseStyled>
+              <i className="icon-arrowLeft"></i>
+            </ButtonCloseStyled>
+          </Link>
+          <div className="current-location">
+            <span>{currentLocation}</span>
+          </div>
         </div>
-      </div>
-      <div className="buy">
-        <div className="product-list">
-          {products.map((product) => {
-            return (
-              <Product
-                product={product}
-                key={product.name}
-                setCurrentPrice={setFinalPrice}
-                currentPrice={finalPrice}
-              />
-            );
-          })}
+        <div></div>
+        <div className="buy">
+          <div className="product-list">
+            {products.map((product) => {
+              return (
+                <Product
+                  product={product}
+                  key={product.name}
+                  setCurrentPrice={setFinalPrice}
+                  currentPrice={finalPrice}
+                />
+              );
+            })}
+          </div>
+          <DataClient
+            finalPrice={finalPrice}
+            setSuccessfulPurchase={setSuccessfulPurchase}
+          />
         </div>
-        <DataClient
-          finalPrice={finalPrice}
-          setSuccessfulPurchase={setSuccessfulPurchase}
-        />
-      </div>
+      </FullHigthView>
     </ToPayStyled>
   );
 }

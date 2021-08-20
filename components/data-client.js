@@ -10,7 +10,7 @@ const DataClientStyled = styled.form`
   }
   input {
     width: 100%;
-    padding: 0 0.75rem;
+    padding: 9px 0.75rem;
     flex: 1;
     height: 35px;
     box-sizing: border-box;

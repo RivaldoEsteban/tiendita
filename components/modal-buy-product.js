@@ -5,10 +5,10 @@ import { Context } from "../pages/_app";
 import Allproducts from "./allProducts";
 import AddedProduct from "./added-product";
 import morePopular from "../list-products/more-popular";
+import FullHigthView from "./full-block-size-view";
 
 const ModalBuyProductStyled = styled.div`
   position: fixed;
-  block-size: 100vh;
   inline-size: 100vw;
   background: rgba(0, 0, 0, 0.5);
   z-index: ${(props) => props.zIndex || 5};
@@ -192,8 +192,8 @@ function ModalBuyProduct({ showModal }) {
   }
 
   return (
-    <>
-      <ModalBuyProductStyled zIndex={zIndex} onClick={handleClosedPage}>
+    <ModalBuyProductStyled zIndex={zIndex} onClick={handleClosedPage}>
+      <FullHigthView>
         {purchaseCompleted && <AddedProduct hidden={setPurchaseCompleted} />}
         <div
           className="buy-product-content  animate__animated animate__fadeInDown"
@@ -228,8 +228,8 @@ function ModalBuyProduct({ showModal }) {
             setPurchaseCompleted={setPurchaseCompleted}
           />
         </div>
-      </ModalBuyProductStyled>
-    </>
+      </FullHigthView>
+    </ModalBuyProductStyled>
   );
 }
 

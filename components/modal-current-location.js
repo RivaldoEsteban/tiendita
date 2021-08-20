@@ -3,10 +3,10 @@ import styled from "styled-components";
 import location from "../services/geolocation";
 import Place from "./place";
 import { Context } from "../pages/_app";
+import FullHigthView from "./full-block-size-view";
 
 export const ModalCurrentLocationStyled = styled.div`
   position: fixed;
-  block-size: 100vh;
   inline-size: 100vw;
   background: rgba(0, 0, 0, 0.5);
   z-index: ${(props) => props.zIndex || 5};
@@ -134,48 +134,50 @@ function ModalCurrentLocation({ modalHidden }) {
       zIndex={zIndex}
       onClick={handleClosedPage}
     >
-      <div onClick={handleModalClick}>
-        <form
-          className="modal animate__animated animate__fadeInDown"
-          onSubmit={handleSubmit}
-        >
-          <button className="close-button" onClick={handleClick}>
-            <i className="icon-close"></i>
-          </button>
-          <div className="modal-location">
-            <h3>¿Dónde quieres recibir tu pedido?</h3>
-            <p>
-              Para poder ofrecerte productos dentro de tu área, necesitamos tu
-              dirección
-            </p>
-            <div className="search-current-location">
-              <i className="icon-mapLocation" aria-hidden="true"></i>
-              <input
-                type="text"
-                placeholder="Ingresa tu dirección"
-                ref={input}
-                onChange={handleClickForm}
-                required
-              />
-            </div>
-            <button
-              className="button-submit"
-              type="submit"
-              ref={button}
-              onClick={handleToUpdatePosition}
-            >
-              Buscar
+      <FullHigthView>
+        <div onClick={handleModalClick}>
+          <form
+            className="modal animate__animated animate__fadeInDown"
+            onSubmit={handleSubmit}
+          >
+            <button className="close-button" onClick={handleClick}>
+              <i className="icon-close"></i>
             </button>
-          </div>
-          {places.length > 2 && (
-            <Place
-              places={places}
-              input={input.current}
-              button={button.current}
-            />
-          )}
-        </form>
-      </div>
+            <div className="modal-location">
+              <h3>¿Dónde quieres recibir tu pedido?</h3>
+              <p>
+                Para poder ofrecerte productos dentro de tu área, necesitamos tu
+                dirección
+              </p>
+              <div className="search-current-location">
+                <i className="icon-mapLocation" aria-hidden="true"></i>
+                <input
+                  type="text"
+                  placeholder="Ingresa tu dirección"
+                  ref={input}
+                  onChange={handleClickForm}
+                  required
+                />
+              </div>
+              <button
+                className="button-submit"
+                type="submit"
+                ref={button}
+                onClick={handleToUpdatePosition}
+              >
+                Buscar
+              </button>
+            </div>
+            {places.length > 2 && (
+              <Place
+                places={places}
+                input={input.current}
+                button={button.current}
+              />
+            )}
+          </form>
+        </div>
+      </FullHigthView>
     </ModalCurrentLocationStyled>
   );
 }

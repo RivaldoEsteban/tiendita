@@ -4,9 +4,10 @@ import styled from "styled-components";
 import { Context } from "../pages/_app";
 import ButtonClose from "./button-close";
 import Products from "./product-list";
+import FullHigthView from "./full-block-size-view";
+
 const ShoppingCartStyled = styled.div`
   position: fixed;
-  block-size: 100vh;
   inline-size: 100vw;
   background: rgba(0, 0, 0, 0.5);
   z-index: 5;
@@ -16,7 +17,7 @@ const ShoppingCartStyled = styled.div`
     position: absolute;
     right: 0;
     inline-size: 35.12rem;
-    block-size: 100vh;
+    block-size: inherit;
   }
   .location {
     background: var(--white);
@@ -101,28 +102,33 @@ function ModalShoppingCart({ modalShoppingCart, modalLocation, modalBuy }) {
 
   return (
     <ShoppingCartStyled onClick={handleClosedPage}>
-      <div
-        className="shopping-cart-content animate__animated animate__bounceInRight"
-        onClick={handleModalClick}
-      >
-        <div className="location">
-          <p onClick={handleLocation}>
-            Entregar en: <b>{location}</b>
-          </p>
-          <ButtonClose modalHidden={modalShoppingCart} />
+      <FullHigthView>
+        <div
+          className="shopping-cart-content animate__animated animate__bounceInRight"
+          onClick={handleModalClick}
+        >
+          <div className="location">
+            <p onClick={handleLocation}>
+              Entregar en: <b>{location}</b>
+            </p>
+            <ButtonClose modalHidden={modalShoppingCart} />
+          </div>
+          <div className="product-list">
+            {productList.length > 0 ? (
+              <Products
+                productList={productList}
+                modalLocation={modalLocation}
+              />
+            ) : (
+              <div className="cart-empty">
+                <img src="./images/family-shoping.png" alt="family shopping" />
+                <h3>Tu canasta está vacía</h3>
+                <button onClick={handleAddProducts}>Agregar Productos</button>
+              </div>
+            )}
+          </div>
         </div>
-        <div className="product-list">
-          {productList.length > 0 ? (
-            <Products productList={productList} modalLocation={modalLocation} />
-          ) : (
-            <div className="cart-empty">
-              <img src="./images/family-shoping.png" alt="family shopping" />
-              <h3>Tu canasta está vacía</h3>
-              <button onClick={handleAddProducts}>Agregar Productos</button>
-            </div>
-          )}
-        </div>
-      </div>
+      </FullHigthView>
     </ShoppingCartStyled>
   );
 }

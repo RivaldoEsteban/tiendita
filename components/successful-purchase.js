@@ -4,10 +4,10 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import { Context } from "../pages/_app";
+import FullHigthView from "./full-block-size-view";
 
 const SuccessfulPurchaseStyled = styled.div`
   position: fixed;
-  block-size: 100vh;
   inline-size: 100vw;
   background: rgba(0, 0, 0, 0.5);
   z-index: 5;
@@ -80,13 +80,15 @@ function SuccessfulPurchase() {
   }
   return (
     <SuccessfulPurchaseStyled>
-      <div className="modal animate__animated animate__fadeInDown">
-        <img src="./images/hands-buying.png" alt="hands buying" />
-        <h2>¡Gracias por tu compra!</h2>
-        <Link href="/">
-          <button onClick={handleClick}>Seguir comprando</button>
-        </Link>
-      </div>
+      <FullHigthView>
+        <div className="modal animate__animated animate__fadeInDown">
+          <img src="./images/hands-buying.png" alt="hands buying" />
+          <h2>¡Gracias por tu compra!</h2>
+          <Link href="/">
+            <button onClick={handleClick}>Seguir comprando</button>
+          </Link>
+        </div>
+      </FullHigthView>
     </SuccessfulPurchaseStyled>
   );
 }

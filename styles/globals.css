@@ -33,7 +33,6 @@ body {
   margin: 0;
   font-family: "Poppins", sans-serif;
   inline-size: 100vw;
-  block-size: 100vh;
   background: var(--bg);
 }
 
@@ -52,4 +51,9 @@ button {
 
 button:active {
   transform: scale(0.99);
+}
+
+input {
+  font-size: 1rem;
+  padding: 9px 12px;
 }
