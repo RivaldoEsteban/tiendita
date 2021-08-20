@@ -92,7 +92,6 @@ export const ModalCurrentLocationStyled = styled.div`
 
 function ModalCurrentLocation({ modalHidden }) {
   const context = useContext(Context);
-  console.log(context);
 
   const input = useRef(null);
   const button = useRef(null);
