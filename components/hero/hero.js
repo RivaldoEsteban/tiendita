@@ -5,7 +5,7 @@ import styled from "styled-components";
 const HeroStyled = styled.section`
   background-image: url("./images/banner.png");
   background-size: contain;
-  padding: 43px;
+  padding: 104px;
   border-radius: 0.5rem;
 
   p {
@@ -16,6 +16,7 @@ const HeroStyled = styled.section`
   }
 
   @media (max-width: 600px) {
+    padding: 43px;
     margin: 0 1rem;
     p {
       font-size: 14px;

@@ -7,9 +7,9 @@ import AddedProduct from "./added-product";
 import morePopular from "../list-products/more-popular";
 import FullBlockSizeView from "./full-block-size-view";
 import Overlay from "./overlay";
-import Button from "./button";
 import ButtonClose from "./button-close";
 import ProductData from "./modalBuyProduct/product-data";
+import { v4 as uuidv4 } from "uuid";
 
 const ModalBuyProductStyled = styled.div`
   .buy-product-content {
@@ -142,7 +142,10 @@ function ModalBuyProduct({ showModal }) {
       setPurchaseCompleted(true);
       const currentProducts = context.refCurrentProducts.value;
       context.refCurrentProducts.setShoppingCart(Number(currentProducts) + 1);
-      context.shoppingCart.product.setDataProduct([...addToCart, product]);
+      context.shoppingCart.product.setDataProduct([
+        ...addToCart,
+        { product, id: uuidv4() },
+      ]);
     }
   }
 

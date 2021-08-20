@@ -40,7 +40,6 @@ function ModalShoppingCart({ modalShoppingCart, modalLocation, modalBuy }) {
   const context = useContext(Context);
   const finalPrice = context.shoppingCart.finalPrice.value;
   const productList = context.shoppingCart.product.value;
-  // console.log(context);
 
   function handleClosedPage() {
     modalShoppingCart(false);

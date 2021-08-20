@@ -8,9 +8,9 @@ import Overlay from "./overlay";
 
 export const ModalCurrentLocationStyled = styled.div`
   .modal {
-    position: absolute;
+    /* position: absolute;
     right: calc(50% - (700px / 2));
-    top: 9.37rem;
+    top: 9.37rem; */
     inline-size: 43.75rem;
     block-size: 22.125rem;
     padding: 2.5rem;
@@ -19,6 +19,16 @@ export const ModalCurrentLocationStyled = styled.div`
     border-radius: 1rem;
     z-index: 10;
   }
+
+  .container {
+    block-size: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    min-block-size: inherit;
+  }
+
   .close-button {
     position: absolute;
     right: 40px;
@@ -75,11 +85,15 @@ export const ModalCurrentLocationStyled = styled.div`
       block-size: initial;
     }
   }
-  @media (max-width: 450px) {
+  @media (max-width: 468px) {
+    .container {
+      min-block-size: inherit;
+      padding: 1rem;
+    }
     .modal {
-      inline-size: calc(100% - 32px);
+      width: 100%;
       box-sizing: border-box;
-      right: 1rem;
+      position: initial;
     }
     .place p {
       width: 200px;
@@ -129,7 +143,7 @@ function ModalCurrentLocation({ modalHidden }) {
     <Overlay event={handleClosedPage} zIndex={zIndex}>
       <ModalCurrentLocationStyled ref={modal}>
         <FullBlockSizeView>
-          <div onClick={handleModalClick}>
+          <div onClick={handleModalClick} className="container">
             <form
               className="modal animate__animated animate__fadeInDown"
               onSubmit={handleSubmit}

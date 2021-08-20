@@ -5,6 +5,10 @@ import { Context } from "../pages/_app";
 import { useRouter } from "next/router";
 
 const GoPayStyled = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
   .pay-for-products {
     block-size: 4.5rem;
     padding: 1rem;
@@ -46,9 +50,22 @@ const GoPayStyled = styled.div`
     border: 2px solid transparent;
     padding: 0.7rem 1rem;
     border-radius: 0.8rem;
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .cancel-products p:hover {
     border: 2px solid royalblue;
+  }
+  @media (max-width: 450px) {
+    .pay-for-products {
+      display: block;
+      height: auto;
+    }
+    .pay {
+      width: 100%;
+    }
   }
 `;
 

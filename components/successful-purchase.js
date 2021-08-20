@@ -72,12 +72,14 @@ const SuccessfulPurchaseStyled = styled.div`
 
 function SuccessfulPurchase() {
   const context = useContext(Context);
+
   function handleClick() {
     context.shoppingCart.finalPrice.setPrice(0);
     context.shoppingCart.product.setDataProduct([]);
     context.refCurrentProducts.setShoppingCart(0);
     context.setContext({});
   }
+
   return (
     <SuccessfulPurchaseStyled>
       <FullHigthView>
