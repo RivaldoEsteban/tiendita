@@ -12,7 +12,7 @@ const AllproductsStyled = styled.div`
   }
 `;
 
-function Allproducts({ showModal }) {
+function Allproducts({ showModal, setPurchaseCompleted }) {
   return (
     <AllproductsStyled>
       <div className="all-products">
@@ -22,6 +22,7 @@ function Allproducts({ showModal }) {
               product={product}
               key={product.name}
               showModal={showModal}
+              setPurchaseCompleted={setPurchaseCompleted}
             />
           );
         })}
@@ -32,6 +33,7 @@ function Allproducts({ showModal }) {
               product={product}
               key={product.name}
               showModal={showModal}
+              setPurchaseCompleted={setPurchaseCompleted}
             />
           );
         })}

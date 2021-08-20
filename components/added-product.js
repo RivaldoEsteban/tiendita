@@ -8,15 +8,15 @@ const AddedProductStyled = styled.div`
   justify-content: center;
   color: var(--white);
   align-items: center;
-  position: absolute;
   right: 1.5rem;
   top: 1.5rem;
   border-radius: 0.5rem;
   overflow: hidden;
   z-index: 15;
+  position: fixed;
   .loadBar {
     animation-name: loadBar;
-    animation-duration: 2s;
+    animation-duration: 1500ms;
     animation-fill-mode: forwards;
     block-size: 4px;
     inline-size: 0%;
@@ -41,10 +41,9 @@ function AddedProduct({ hidden }) {
   (function hiddenModal() {
     setTimeout(() => {
       hidden(false);
-    }, 2000);
+    }, 1500);
   })();
 
-  function handleClickHiddenModal() {}
   return (
     <AddedProductStyled className="animate__animated animate__bounceInRight">
       <p>Producto Agregado</p>

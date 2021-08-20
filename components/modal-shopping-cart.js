@@ -91,9 +91,20 @@ function ModalShoppingCart({ modalShoppingCart, modalLocation, modalBuy }) {
     modalLocation(true);
   }
 
+  function handleClosedPage() {
+    modalShoppingCart(false);
+  }
+
+  function handleModalClick(event) {
+    event.stopPropagation();
+  }
+
   return (
-    <ShoppingCartStyled>
-      <div className="shopping-cart-content animate__animated animate__bounceInRight">
+    <ShoppingCartStyled onClick={handleClosedPage}>
+      <div
+        className="shopping-cart-content animate__animated animate__bounceInRight"
+        onClick={handleModalClick}
+      >
         <div className="location">
           <p onClick={handleLocation}>
             Entregar en: <b>{location}</b>
@@ -102,7 +113,7 @@ function ModalShoppingCart({ modalShoppingCart, modalLocation, modalBuy }) {
         </div>
         <div className="product-list">
           {productList.length > 0 ? (
-            <Products productList={productList} />
+            <Products productList={productList} modalLocation={modalLocation} />
           ) : (
             <div className="cart-empty">
               <img src="./images/family-shoping.png" alt="family shopping" />

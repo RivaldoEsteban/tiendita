@@ -6,6 +6,7 @@ import Main from "../components/main";
 import ModalCurrentLocation from "../components/modal-current-location";
 import ModalBuyProduct from "../components/modal-buy-product";
 import ModalShoppingCart from "../components/modal-shopping-cart";
+
 const IndexStyled = styled.div``;
 
 function Index() {
@@ -15,27 +16,27 @@ function Index() {
 
   return (
     <IndexStyled>
-      {modalProductSelected ? (
+      {modalProductSelected && (
         <ModalBuyProduct showModal={setProductSelected} />
-      ) : null}
+      )}
 
-      {modalCurrentLocation ? (
+      {modalCurrentLocation && (
         <ModalCurrentLocation modalHidden={setModalCurrentLocation} />
-      ) : null}
+      )}
 
-      {modalShoppingCart ? (
+      {modalShoppingCart && (
         <ModalShoppingCart
           modalShoppingCart={setModalShoppingCart}
           modalBuy={setProductSelected}
           modalLocation={setModalCurrentLocation}
         />
-      ) : (
-        ""
       )}
+
       <Header
         modalBuyProduct={setModalCurrentLocation}
         modalShoppingCart={setModalShoppingCart}
       />
+
       <Main
         modalHidden={setModalCurrentLocation}
         showModal={setProductSelected}

@@ -55,23 +55,21 @@ const ToPayStyled = styled.div`
 
 function ToPay() {
   const context = useContext(Context);
+  console.log(context);
   const finalPrice = context.shoppingCart.finalPrice.value;
   const setFinalPrice = context.shoppingCart.finalPrice.setPrice;
+  console.log(finalPrice);
   const [products, setProducts] = useState([]);
   const [successfulPurchase, setSuccessfulPurchase] = useState(false);
 
   useEffect(() => {
-    const location = localStorage.location;
-    const finalPrice = localStorage.finalPrice;
     const productsContext = context.shoppingCart.product.value;
     const data = localStorage.products;
-    console.log(JSON.parse(data));
     const products =
       productsContext.length > 0 ? productsContext : JSON.parse(data);
     setProducts(products);
-  }, [context]);
+  }, []);
 
-  console.log(products);
   return (
     <ToPayStyled>
       {successfulPurchase ? <SuccessfulPurchase /> : null}
@@ -83,24 +81,18 @@ function ToPay() {
         </Link>
       </div>
       <div className="buy">
-        {products ? (
-          <div className="product-list">
-            {products.map((product) => {
-              return (
-                <div>
-                  <Product
-                    product={product}
-                    key={product.name}
-                    setCurrentPrice={setFinalPrice}
-                    currentPrice={finalPrice}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <p>no hay datos</p>
-        )}
+        <div className="product-list">
+          {products.map((product) => {
+            return (
+              <Product
+                product={product}
+                key={product.name}
+                setCurrentPrice={setFinalPrice}
+                currentPrice={finalPrice}
+              />
+            );
+          })}
+        </div>
         <DataClient
           finalPrice={finalPrice}
           setSuccessfulPurchase={setSuccessfulPurchase}

@@ -9,6 +9,7 @@ function MyApp({ Component, pageProps }) {
   const [dataProduct, setDataProduct] = useState([]);
   const [productMaduration, setProductMaduration] = useState([]);
   const [price, setPrice] = useState(0);
+  
   return (
     <Context.Provider
       value={{

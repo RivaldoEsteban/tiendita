@@ -92,6 +92,8 @@ export const ModalCurrentLocationStyled = styled.div`
 
 function ModalCurrentLocation({ modalHidden }) {
   const context = useContext(Context);
+  console.log(context);
+
   const input = useRef(null);
   const button = useRef(null);
   const modal = useRef(null);
@@ -106,8 +108,11 @@ function ModalCurrentLocation({ modalHidden }) {
     modalHidden(false);
   }
   function handleToUpdatePosition() {
-    context.refLocation.setLocation(input.current.value);
-    modalHidden(false);
+    console.log();
+    if (input.current.value) {
+      context.refLocation.setLocation(input.current.value);
+      modalHidden(false);
+    }
   }
 
   function zIndex() {
@@ -115,46 +120,63 @@ function ModalCurrentLocation({ modalHidden }) {
       return 11;
     }
   }
+  function handleSubmit(event) {
+    event.preventDefault();
+  }
+  function handleClosedPage() {
+    modalHidden(false);
+  }
+  function handleModalClick(event) {
+    event.stopPropagation();
+  }
 
   return (
-    <ModalCurrentLocationStyled ref={modal} zIndex={zIndex}>
-      <div className="modal animate__animated animate__fadeInDown">
-        <button className="close-button" onClick={handleClick}>
-          <i className="icon-close"></i>
-        </button>
-        <div className="modal-location">
-          <h3>¿Dónde quieres recibir tu pedido?</h3>
-          <p>
-            Para poder ofrecerte productos dentro de tu área, necesitamos tu
-            dirección
-          </p>
-          <div className="search-current-location">
-            <i className="icon-mapLocation" aria-hidden="true"></i>
-            <input
-              type="text"
-              placeholder="Ingresa tu dirección"
-              ref={input}
-              onChange={handleClickForm}
-            />
-          </div>
-          <button
-            className="button-submit"
-            type="submit"
-            ref={button}
-            onClick={handleToUpdatePosition}
-          >
-            Buscar
+    <ModalCurrentLocationStyled
+      ref={modal}
+      zIndex={zIndex}
+      onClick={handleClosedPage}
+    >
+      <div onClick={handleModalClick}>
+        <form
+          className="modal animate__animated animate__fadeInDown"
+          onSubmit={handleSubmit}
+        >
+          <button className="close-button" onClick={handleClick}>
+            <i className="icon-close"></i>
           </button>
-        </div>
-        {places.length > 2 ? (
-          <Place
-            places={places}
-            input={input.current}
-            button={button.current}
-          />
-        ) : (
-          ""
-        )}
+          <div className="modal-location">
+            <h3>¿Dónde quieres recibir tu pedido?</h3>
+            <p>
+              Para poder ofrecerte productos dentro de tu área, necesitamos tu
+              dirección
+            </p>
+            <div className="search-current-location">
+              <i className="icon-mapLocation" aria-hidden="true"></i>
+              <input
+                type="text"
+                placeholder="Ingresa tu dirección"
+                ref={input}
+                onChange={handleClickForm}
+                required
+              />
+            </div>
+            <button
+              className="button-submit"
+              type="submit"
+              ref={button}
+              onClick={handleToUpdatePosition}
+            >
+              Buscar
+            </button>
+          </div>
+          {places.length > 2 && (
+            <Place
+              places={places}
+              input={input.current}
+              button={button.current}
+            />
+          )}
+        </form>
       </div>
     </ModalCurrentLocationStyled>
   );

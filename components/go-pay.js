@@ -2,6 +2,7 @@
 import Reactn, { useContext, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { Context } from "../pages/_app";
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 const GoPayStyled = styled.div`
@@ -33,6 +34,7 @@ const GoPayStyled = styled.div`
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     font: var(--body2-bold);
     cursor: pointer;
+    border: none;
   }
   .pay:active {
     transform: scale(0.95);
@@ -55,13 +57,23 @@ const GoPayStyled = styled.div`
   }
 `;
 
-function GoPay({ productList, currentPrice }) {
+function GoPay({ productList, currentPrice, modalLocation }) {
+  const router = useRouter();
   const context = useContext(Context);
   localStorage.setItem("currentPrice", currentPrice);
+  const currentLocation = context.refLocation.value;
 
   function handleRemoveProducts() {
     context.shoppingCart.product.setDataProduct("");
     context.refCurrentProducts.setShoppingCart(0);
+  }
+
+  function validateDataUser() {
+    if (currentLocation != "Selecciona tu ubicación") {
+      router.push("/pay");
+    } else {
+      modalLocation(true);
+    }
   }
 
   return (
@@ -70,19 +82,17 @@ function GoPay({ productList, currentPrice }) {
         <div className="cancel-products" onClick={handleRemoveProducts}>
           <p>Vaciar canasta</p>
         </div>
-        <Link href="/pay">
-          <div className="pay">
-            <p className="amount-product" aria-hidden="true">
-              {productList.length}
-            </p>
-            <p className="text" aria-hidden="true">
-              Ir a pagar
-            </p>
-            <p className="amount" aria-hidden="true">
-              $ <b>{currentPrice}</b>
-            </p>
-          </div>
-        </Link>
+        <button className="pay" onClick={validateDataUser}>
+          <p className="amount-product" aria-hidden="true">
+            {productList.length}
+          </p>
+          <p className="text" aria-hidden="true">
+            Ir a pagar
+          </p>
+          <p className="amount" aria-hidden="true">
+            $ <b>{currentPrice}</b>
+          </p>
+        </button>
       </div>
     </GoPayStyled>
   );

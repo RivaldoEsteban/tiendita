@@ -15,12 +15,11 @@ const ProductListStyled = styled.div`
   padding-bottom: 100px;
 `;
 
-function Products({ productList }) {
+function Products({ productList, modalLocation }) {
   const context = useContext(Context);
   const finalPrice = context.shoppingCart.finalPrice.value;
   const setFinalPrice = context.shoppingCart.finalPrice.setPrice;
 
-  // const [currentPrice, setCurrentPrice] = useState();
   const localStorage = window.localStorage;
   localStorage.setItem("products", JSON.stringify(productList));
   localStorage.setItem("finalPrice", JSON.stringify(finalPrice));
@@ -52,6 +51,7 @@ function Products({ productList }) {
       <GoPay
         productList={productList}
         currentPrice={finalPrice}
+        modalLocation={modalLocation}
         //  setFinalPrice={setCurrentPrice}
       />
     </ProductListStyled>

@@ -90,6 +90,7 @@ const DataClientStyled = styled.form`
 `;
 
 function DataClient({ finalPrice, setSuccessfulPurchase }) {
+  console.log(finalPrice);
   function handleForm(event) {
     event.preventDefault();
     setSuccessfulPurchase(true);

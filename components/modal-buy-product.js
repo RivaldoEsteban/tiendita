@@ -62,6 +62,8 @@ const ModalBuyProductStyled = styled.div`
   .close {
     display: flex;
     justify-content: flex-end;
+    position: sticky;
+    top: 0;
     button {
       padding: 0.5rem 0.5rem 0.4rem 0.5rem;
       border-radius: 50%;
@@ -155,19 +157,15 @@ const ModalBuyProductStyled = styled.div`
       }
     }
   }
-  @media (max-width: 500px) {
-  }
 `;
 
 function ModalBuyProduct({ showModal }) {
   const context = useContext(Context);
-  const select = useRef(null);
   const [purchaseCompleted, setPurchaseCompleted] = useState(false);
   const productFabuloso = morePopular[5];
   const product = context.context.name ? context.context : productFabuloso;
   const addToCart = context.shoppingCart.product.value;
-  console.log(context);
-  console.log(product);
+
   function handleHideModal() {
     showModal(false);
   }
@@ -186,43 +184,52 @@ function ModalBuyProduct({ showModal }) {
       return 11;
     }
   }
+  function handleClosedPage() {
+    showModal(false);
+  }
+  function handleModalClick(event) {
+    event.stopPropagation();
+  }
 
   return (
-    <ModalBuyProductStyled zIndex={zIndex}>
-      {purchaseCompleted ? <AddedProduct hidden={setPurchaseCompleted} /> : ""}
-      <div className="buy-product-content  animate__animated animate__fadeInDown">
-        <div className="close">
-          <button onClick={handleHideModal}>
-            <i className="icon-close"></i>
-          </button>
-        </div>
-        <div className="product-selected">
-          <div className="product-image">
-            <img src={`./images/${product?.name}.jpg`} alt={product?.name} />
+    <>
+      <ModalBuyProductStyled zIndex={zIndex} onClick={handleClosedPage}>
+        {purchaseCompleted && <AddedProduct hidden={setPurchaseCompleted} />}
+        <div
+          className="buy-product-content  animate__animated animate__fadeInDown"
+          onClick={handleModalClick}
+        >
+          <div className="close">
+            <button onClick={handleHideModal}>
+              <i className="icon-close"></i>
+            </button>
           </div>
-          <div className="product-description">
-            <div>
-              <h3 className="description">{product?.description}</h3>
-              <p className="price">· ${product?.initialPrice} /Kg</p>
-              <p className="iva">Precios con IVA incluido</p>
-              <p className="peso">
-                Peso aproximado por pieza, puede variar de acuerdo al peso real.
-              </p>
+          <div className="product-selected">
+            <div className="product-image">
+              <img src={`./images/${product?.name}.jpg`} alt={product?.name} />
             </div>
-            <div className="fruit-ripening">
-              <h4>Selecciona la madurez que deseas</h4>
-              <select name="select" id="select" ref={select}>
-                <option value="Maduro (Para hoy)">Maduro (Para hoy)</option>
-                <option value="Normal (3-5 días)">Normal (3-5 días)</option>
-                <option value="Verde (7 días)">Verde (7 días)</option>
-              </select>
-              <button onClick={handleDataProduct}>Agregar al carrito</button>
+            <div className="product-description">
+              <div>
+                <h3 className="description">{product?.description}</h3>
+                <p className="price">· ${product?.initialPrice} /Kg</p>
+                <p className="iva">Precios con IVA incluido</p>
+                <p className="peso">
+                  Peso aproximado por pieza, puede variar de acuerdo al peso
+                  real.
+                </p>
+              </div>
+              <div className="fruit-ripening">
+                <button onClick={handleDataProduct}>Agregar al carrito</button>
+              </div>
             </div>
           </div>
+          <Allproducts
+            showModal={showModal}
+            setPurchaseCompleted={setPurchaseCompleted}
+          />
         </div>
-        <Allproducts showModal={showModal} />
-      </div>
-    </ModalBuyProductStyled>
+      </ModalBuyProductStyled>
+    </>
   );
 }
 

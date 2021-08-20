@@ -1,7 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { Context } from "../pages/_app";
+import AddedProduct from "./added-product";
+
 const ProductStyled = styled.div`
   inline-size: 12.5rem;
   block-size: 26.62rem;
@@ -10,6 +12,7 @@ const ProductStyled = styled.div`
   align-items: start;
   position: relative;
   gap: 1rem;
+  cursor: pointer;
   * {
     margin: 0;
   }
@@ -65,15 +68,32 @@ const ProductStyled = styled.div`
   }
 `;
 
-function Product({ product, showModal, setDataProduct }) {
+function Product({ product, showModal, setPurchaseCompleted }) {
   const context = useContext(Context);
-  // console.log(context);
-  function handleClick(product) {
-    context.setContext(product);
+  const [active, setActive] = useState(false);
+  const addToCart = context.shoppingCart.product.value;
+
+  function handleClick(event) {
+    event.stopPropagation();
+    if (!active) {
+      setActive(true);
+      if (setPurchaseCompleted) {
+        setPurchaseCompleted(true);
+      }
+      context.refCurrentProducts.setShoppingCart(
+        Number(context.refCurrentProducts.value) + 1
+      );
+      context.shoppingCart.product.setDataProduct([...addToCart, product]);
+    }
+  }
+
+  function details() {
     showModal(true);
+    context.setContext(product);
   }
   return (
-    <ProductStyled id={product.name}>
+    <ProductStyled id={product.name} onClick={details}>
+      {active && <AddedProduct hidden={setActive} />}
       <button className="button-descuento">
         <span>{product.discount}%</span>
         dto.
@@ -84,7 +104,7 @@ function Product({ product, showModal, setDataProduct }) {
         <p className="previous-price">${product.precioAntes}/kg</p>
       </div>
       <h3>{product.description}</h3>
-      <button className="button-add" onClick={() => handleClick(product)}>
+      <button className="button-add" onClick={handleClick}>
         Agregar
       </button>
     </ProductStyled>

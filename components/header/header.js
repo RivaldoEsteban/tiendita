@@ -4,6 +4,9 @@ import Wrappeer from "../wrapper/wrapper";
 import { Context } from "../../pages/_app";
 const HeaderStyled = styled.header`
   background: var(--white);
+  position: sticky;
+  top: 0;
+  z-index: 1;
   .header-content {
     padding: 24px 0;
     display: flex;
@@ -33,6 +36,11 @@ const HeaderStyled = styled.header`
     border-radius: 0.5rem;
     padding: 0.5rem;
     margin: 0;
+    max-width: 250px;
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .location:hover {
     border: 2px solid royalblue;
@@ -72,13 +80,6 @@ const HeaderStyled = styled.header`
       width: 100%;
       gap: 1rem;
     }
-    .location {
-      white-space: nowrap;
-      display: block;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      /* flex: 1; */
-    }
     .header-location-content {
       justify-content: flex-start;
       flex: 1;
@@ -107,6 +108,7 @@ function Header({ modalBuyProduct, modalShoppingCart }) {
   function handleShowModal() {
     modalShoppingCart(true);
   }
+
   return (
     <HeaderStyled>
       <Wrappeer>

@@ -42,15 +42,10 @@ function Place({ places, input, button }) {
   function handleClick(place) {
     button.textContent = "Guardar ";
     input.value = place.description;
-  }
-  function handleClickButton() {
     modal.current.style.display = "none";
   }
   return (
     <PlaceStyled className="places" id="places" ref={modal}>
-      <button className="close button" onClick={handleClickButton}>
-        <i className="icon-close"></i>
-      </button>
       {places?.map((place) => {
         return (
           <div
