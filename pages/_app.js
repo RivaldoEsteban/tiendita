@@ -142,7 +142,6 @@ function MyApp({ Component, pageProps }) {
           content="#FC462D"
           media="(prefers-color-scheme: dark)"
         />
-
         <meta
           property="og:title"
           content="Tiendita - Rivaldo Esteban portafolio"

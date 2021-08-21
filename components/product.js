@@ -57,13 +57,14 @@ const ProductStyled = styled.div`
   .previous-price {
     opacity: 0.3;
     position: relative;
+    color: black;
   }
   .previous-price::after {
     content: "";
     width: 100%;
     height: 2px;
     background: black;
-    opacity: 0.9;
+    opacity: 0.3;
     position: absolute;
     left: 0;
     top: calc(50% - 1px);
@@ -72,6 +73,7 @@ const ProductStyled = styled.div`
     color: var(--boulder);
     font: var(--caption-regular);
     margin: 0;
+    /* color: black; */
   }
   .product-data {
     display: flex;
@@ -116,7 +118,12 @@ function Product({ product, showModal, setPurchaseCompleted }) {
             dto.
           </button>
         )}
-        <img src={`./images/${product.name}.jpg`} alt={product.description} />
+        <img
+          src={`./images/${product.name}.jpg`}
+          alt={product.description}
+          width="100"
+          height="100"
+        />
         <div className="prices">
           <p>${product.initialPrice}/kg</p>
 
