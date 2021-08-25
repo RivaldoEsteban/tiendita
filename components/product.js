@@ -59,6 +59,7 @@ const ProductStyled = styled.div`
     position: relative;
     color: black;
   }
+
   .previous-price::after {
     content: "";
     width: 100%;

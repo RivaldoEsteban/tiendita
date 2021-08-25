@@ -40,7 +40,9 @@ const PlaceStyled = styled.div`
 
 function Place({ places, input, button }) {
   const modal = useRef(null);
+  console.log(places);
   function handleClick(place) {
+    console.log(place);
     button.textContent = "Guardar ";
     input.value = place.description;
     modal.current.style.display = "none";
